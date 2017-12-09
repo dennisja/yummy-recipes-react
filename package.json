@@ -6,6 +6,7 @@
     "axios": "^0.17.1",
     "jquery": "^3.2.1",
     "materialize-css": "^0.100.2",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
@@ -18,9 +19,12 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "enzyme": "^3.2.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-react": "^7.5.1",
+    "expect": "^21.2.1",
+    "mocha": "^4.0.1"
   }
 }
