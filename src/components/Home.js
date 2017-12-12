@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import LoginForm from './forms/LoginForm';
+import RegisterForm from './forms/RegisterForm';
+import FormCard from './forms/FormCard';
 
 class Home extends Component {
     constructor(props) {
@@ -11,8 +13,14 @@ class Home extends Component {
 
     render() {
         return (
-          <div className="card green">
-            <h1>Home Says Welcome { this.state.loggedIn ? 'Boss' : 'Stranger'}</h1>
+          <div className="row">
+            <div className="col m6 hide-on-small-only">
+                This is the demo
+            </div>
+            <div className="col m6">
+              <FormCard title="Login" form={<LoginForm />} />
+              <FormCard title="Register" form={<RegisterForm />} />
+            </div>
           </div>
         );
     }
