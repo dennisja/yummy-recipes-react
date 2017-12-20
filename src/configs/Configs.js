@@ -1,6 +1,6 @@
 const Configs = {
     api: {
-        baseUrl: 'http://localhost/yummy/api/v1.0/',
+        baseUrl: 'http://localhost:5000/yummy/api/v1.0/',
         loginUrl: 'auth/login/',
         registerUrl: 'auth/register/',
         recipesUrl: 'recipes/',

@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FormCard = (props) => {
-   const { title, form } = props;
+   const { title, form, iconClass } = props;
    return (
      <div className="card">
        <div className="card-content">
-         <div className="card-title center-align"><i className="fa fa-unlock" />{ title }</div>
+         <div className="card-title center-align">
+           { iconClass ? (<i className={iconClass} />) : ''}
+           { title }
+         </div>
          <hr />
          <div>
            { form }
@@ -19,6 +22,11 @@ const FormCard = (props) => {
 FormCard.propTypes = {
     title: PropTypes.string.isRequired,
     form: PropTypes.element.isRequired,
+    iconClass: PropTypes.string,
+};
+
+FormCard.defaultProps = {
+    iconClass: null,
 };
 
 export default FormCard;
