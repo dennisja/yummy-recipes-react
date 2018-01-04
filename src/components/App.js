@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import React, { Component } from 'react';
+
 import Main from './Main';
-
-
 import '../App.css';
+import Header from './header/Header';
 
 
 class App extends Component {
@@ -23,10 +23,10 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <header>
-            <h1> This is the header</h1>
+            <Header loggedIn={loggedIn} />
           </header>
           <div className="container">
-            <Main loggedIn={loggedIn} />
+            <Main loggedIn={loggedIn} userData={this.state.userData} />
           </div>
           <footer>
             <h1>This is the footer</h1>

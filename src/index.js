@@ -10,13 +10,15 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 $(document).ready(() => {
-    $('.button-collapse').sideNav();
-    $('select').material_select();
+  $('.dropdown-button').dropdown();
+  $('#pdrop').dropdown();
+  $('.button-collapse').sideNav();
+  $('select').material_select();
 });
 
 ReactDOM.render(
   <App />
-, document.getElementById('root'),
+  , document.getElementById('root'),
 );
 
 registerServiceWorker();

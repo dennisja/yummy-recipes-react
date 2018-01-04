@@ -19,7 +19,7 @@ class Home extends Component {
         })
         console.log(userData)
     }
-    
+
     render() {
         return (
             <div className="row">
