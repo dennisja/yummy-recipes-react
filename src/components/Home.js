@@ -33,6 +33,7 @@ class Home extends Component {
                                 <div className="col m6 s10 offset-s1">
                                     <FormCard title="Login" form={<LoginForm onLoginSubmit={this.loginUser}/>} />
                                     <FormCard title="Register" form={<RegisterForm />} />
+                                    {/* <FormCard form={<EditProfileForm />} /> */}
                                 </div>
                             </div>
                         )

@@ -57,11 +57,11 @@ class RegisterForm extends Component {
                 </div>
                 <div className="input-field">
                     <label htmlFor="email">Email:</label>
-                    <input type="email" name="email" id="email" onChange={this.handleInputChange} required/>
+                    <input type="email" name="email" id="reg_email" onChange={this.handleInputChange} required/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" name="password" id="password" onChange={this.handleInputChange} required/>
+                    <input type="password" name="password" id="reg_password" onChange={this.handleInputChange} required/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="c_password">Confirm Password: </label>
