@@ -25,17 +25,13 @@ class RegisterForm extends Component {
     handleSubmit = (event) =>{
         event.preventDefault();
         const {baseUrl, registerUrl} = Configs.api;
-        const userData = {
-            password: this.state.password,
-            c_password: this.state.c_password,
-            email: this.state.email,
-            firstname: this.state.firstname,
-            lastname: this.state.lastname
-        }
-        axios.post(`${baseUrl}${registerUrl}`, userData)
+        const form = event.target;
+        
+        axios.post(`${baseUrl}${registerUrl}`, this.state)
         .then(response=>{
-            console.log(response);
+            form.reset();
             this.setState(RegisterForm.initialState);
+            // alert user that he or she has successfully registered
         })
         .catch(error=>{
             const { data, status } = error.response;

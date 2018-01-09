@@ -24,6 +24,7 @@ class LoginForm extends Component {
     event.preventDefault();
     const { onLoginSubmit } = this.props;
     const { baseUrl, loginUrl } = Configs.api
+    const form = event.target;
     //submit form
     axios({
       method: "POST",
@@ -34,9 +35,9 @@ class LoginForm extends Component {
       }
     })
       .then(response => {
-        this.props.onLoginSubmit(response.data);
-        event.target.reset();
+        onLoginSubmit(response.data);
         this.setState(LoginForm.initialState);
+        form.reset();
       })
       .catch(error => {
         const { data, status } = error.response;
@@ -48,6 +49,7 @@ class LoginForm extends Component {
         console.log(status);
       })
   }
+
   render() {
 
     return (

@@ -8,13 +8,27 @@ import Header from './header/Header';
 
 
 class App extends Component {
-  constructor() {
-    super();
-    this.axios = axios;
-    this.state = {
+  
+  state = {
+    loggedIn: false,
+    userData: null,
+  }
+
+  loginUser = (userData) => {
+    this.setState({
+        loggedIn: true,
+        userData: userData,
+    })
+    //put data in locationStorage
+    console.log(userData)
+  }
+
+  logoutUser = ()=>{
+    this.setState({
       loggedIn: false,
       userData: null,
-    };
+    });
+    //clear data from location storage
   }
 
   render() {
@@ -26,7 +40,7 @@ class App extends Component {
             <Header loggedIn={loggedIn} />
           </header>
           <div className="container">
-            <Main loggedIn={loggedIn} userData={this.state.userData} />
+            <Main loggedIn={loggedIn} userData={this.state.userData} loginUser={this.loginUser} />
           </div>
           <footer>
             <h1>This is the footer</h1>
