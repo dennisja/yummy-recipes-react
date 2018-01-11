@@ -2,19 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 
-const ProfileDropDown = () => (
-  <ul id="dropdown1" className="dropdown-content">
-    <li>
-      <Link to="/"> <i className="fa fa-user" /> Profile</Link>
-    </li>
-    <li>
-      <Link to="/"> <i className="fa fa-sign-out" /> Logout </Link>
-    </li>
-  </ul>
-);
-
 const MenuItems = (props) => {
-    const { loggedIn } = props;
+    const { loggedIn, logoutUser } = props;
     if (loggedIn) {
         return (
           <div>
@@ -33,13 +22,16 @@ const MenuItems = (props) => {
             </li>
             <li>
               <NavLink
-                to="#!"
-                className="dropdown-button"
-                data-activates="dropdown1"
+                to="/"
+                activeClassName="active-nav-link"
                 id="pdrop"
               >
-                <i className="fa fa-user" /> Profile Changed
+                <i className="fa fa-user" /> Profile
               </NavLink>
+            </li>
+            <li>
+              <Link to="/"
+                onClick={logoutUser}> <i className="fa fa-sign-out" /> Logout </Link>
             </li>
           </div>);
     }
@@ -48,11 +40,11 @@ const MenuItems = (props) => {
 
 MenuItems.propTypes = {
     loggedIn: PropTypes.bool.isRequired,
+    logoutUser: PropTypes.func.isRequired,
 };
 
 const Header = props => (
   <div>
-    <ProfileDropDown />
     <nav>
       <div className="nav-wrapper">
         <a href="/" className="brand-logo">Yummy Recipes</a>
@@ -60,10 +52,10 @@ const Header = props => (
           <i className="fa fa-bars" />
         </NavLink>
         <ul className="right hide-on-med-and-down" >
-          <MenuItems loggedIn={props.loggedIn} />
+          <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser}/>
         </ul>
         <ul className="side-nav" id="mobile-demo">
-          <MenuItems loggedIn={props.loggedIn} />
+          <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser} />
         </ul>
       </div>
     </nav>
@@ -72,6 +64,7 @@ const Header = props => (
 
 Header.propTypes = {
     loggedIn: PropTypes.bool.isRequired,
+    logoutUser: PropTypes.func.isRequired,
 };
 
 export default Header;

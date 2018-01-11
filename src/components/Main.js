@@ -10,18 +10,19 @@ const PrivateRoute = ({ component:Component, ...rest})=>{
    (props)=>(
     loggedIn
     ? <Component />
-    : <Redirect to="/" />
+    : <Redirect to={{
+      pathname: '/',
+      state: {from: props.location}
+    }} />
    )
   } />);
 }
 
 const Main = (props) => (
-  <main>
-    <Switch>
-      <Route path="/" exact component={()=><Home loginUser={props.loginUser} loggedIn={props.loggedIn} />} />
-      <PrivateRoute path="/home" component={Dashboard} loggedIn={props.loggedIn} />
-    </Switch>
-  </main>
+  <Switch>
+    <Route path="/" exact component={()=><Home loginUser={props.loginUser} loggedIn={props.loggedIn} />} />
+    <PrivateRoute path="/home" component={Dashboard} loggedIn={props.loggedIn} />
+  </Switch>
 );
 
 export default Main;

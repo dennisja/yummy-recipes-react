@@ -8,14 +8,13 @@ class Home extends Component {
         const {loginUser, loggedIn} = this.props;
 
         if(loggedIn){
-            return <Redirect to="/home" />
+            return <Redirect to='/home' />
         }
-        
+
         return (
             <div className="row">
                 <div className="col m6 hide-on-small-only">
                     This is the demo
-                    <Link to='/home'>Go To protected</Link>
                 </div>
                 <div className="col m6 s10 offset-s1">
                     <FormCard title="Login" form={<LoginForm onLoginSubmit={loginUser}/>} />

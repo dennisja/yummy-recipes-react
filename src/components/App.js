@@ -37,7 +37,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <header>
-            <Header loggedIn={loggedIn} />
+            <Header loggedIn={loggedIn} logoutUser={this.logoutUser}/>
           </header>
           <div className="container">
             <Main loggedIn={loggedIn} userData={this.state.userData} loginUser={this.loginUser} />

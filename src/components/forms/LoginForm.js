@@ -24,7 +24,6 @@ class LoginForm extends Component {
     event.preventDefault();
     const { onLoginSubmit } = this.props;
     const { baseUrl, loginUrl } = Configs.api
-    const form = event.target;
     //submit form
     axios({
       method: "POST",
@@ -35,9 +34,8 @@ class LoginForm extends Component {
       }
     })
       .then(response => {
-        onLoginSubmit(response.data);
         this.setState(LoginForm.initialState);
-        form.reset();
+        onLoginSubmit(response.data);
       })
       .catch(error => {
         const { data, status } = error.response;
@@ -56,11 +54,11 @@ class LoginForm extends Component {
       <form onSubmit={this.handleLoginSubmit}>
         <div className="input-field">
           <label htmlFor="email">Email </label>
-          <input type="email" name="email" id="email" onChange={this.handleInputChange} required/>
+          <input type="email" name="email" id="email" onChange={this.handleInputChange} value={this.state.email} required/>
         </div>
         <div className="input-field">
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" onChange={this.handleInputChange} required/>
+          <input type="password" name="password" id="password" onChange={this.handleInputChange} value={this.state.password} required/>
         </div>
         <div className="center-align">
           <input type="submit" className="btn" name="login" id="login" value="Login" />

@@ -10,10 +10,8 @@ class RegisterForm extends Component {
         password: '',
         c_password: '',
     }
-    constructor(props) {
-        super(props);
-        this.state = RegisterForm.initialState;
-    }
+
+    state = RegisterForm.initialState;
 
     handleInputChange = (event) => {
         const target = event.target;
@@ -45,23 +43,23 @@ class RegisterForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="input-field">
                     <label htmlFor="firstname">First Name:</label>
-                    <input type="text" name="firstname" id="firstname" onChange={this.handleInputChange} required/>
+                    <input type="text" name="firstname" id="firstname" onChange={this.handleInputChange} value={this.state.firstname} required/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="lastname">Last Name:</label>
-                    <input type="text" name="lastname" id="lastname" onChange={this.handleInputChange} required/>
+                    <input type="text" name="lastname" id="lastname" onChange={this.handleInputChange} value={this.state.lastname} required/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="email">Email:</label>
-                    <input type="email" name="email" id="reg_email" onChange={this.handleInputChange} required/>
+                    <input type="email" name="email" id="reg_email" onChange={this.handleInputChange} value={this.state.email} required/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" name="password" id="reg_password" onChange={this.handleInputChange} required/>
+                    <input type="password" name="password" id="reg_password" onChange={this.handleInputChange} value={this.state.password} required/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="c_password">Confirm Password: </label>
-                    <input type="password" name="c_password" id="c_password" onChange={this.handleInputChange} required/>
+                    <input type="password" name="c_password" id="c_password" onChange={this.handleInputChange} value={this.state.c_password} required/>
                 </div>
                 <div className="center-align">
                     <input type="submit" className="btn" name="register" id="register" value="Register" />
