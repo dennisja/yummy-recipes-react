@@ -8,11 +8,15 @@ import Header from './header/Header';
 
 
 class App extends Component {
-  
-  state = {
+  static initialState = {
     loggedIn: false,
-    userData: null,
+    userData: {
+      data: null,
+      token: "",
+    },
   }
+  
+  state = App.initialState;
 
   loginUser = (userData) => {
     this.setState({
@@ -24,20 +28,20 @@ class App extends Component {
   }
 
   logoutUser = ()=>{
-    this.setState({
-      loggedIn: false,
-      userData: null,
-    });
+    this.setState(App.initialState);
     //clear data from location storage
   }
 
   render() {
-    const { loggedIn } = this.state;
+    const { loggedIn, userData:{data:userData} } = this.state;
     return (
       <BrowserRouter>
         <div>
           <header>
-            <Header loggedIn={loggedIn} logoutUser={this.logoutUser}/>
+            <Header 
+              loggedIn={loggedIn} 
+              logoutUser={this.logoutUser} 
+              userData={userData}/>
           </header>
           <div className="container">
             <Main loggedIn={loggedIn} userData={this.state.userData} loginUser={this.loginUser} />

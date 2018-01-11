@@ -6,5 +6,6 @@ module.exports = {
         "no-undef": 0,
         "indent": 0,
         "label-has-for": 0,
+        "linebreak-style": 0,
     }
 };

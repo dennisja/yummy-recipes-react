@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import ProfileCard from '../profile/ProfileCard';
 
 const MenuItems = (props) => {
     const { loggedIn, logoutUser } = props;
@@ -18,7 +19,9 @@ const MenuItems = (props) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" activeClassName="active-nav-link">Categories</NavLink>
+              <NavLink to="/" activeClassName="active-nav-link">
+                <i className="fa fa-tags" /> Categories
+              </NavLink>
             </li>
             <li>
               <NavLink
@@ -30,8 +33,11 @@ const MenuItems = (props) => {
               </NavLink>
             </li>
             <li>
-              <Link to="/"
-                onClick={logoutUser}> <i className="fa fa-sign-out" /> Logout </Link>
+              <NavLink
+                to="/"
+                onClick={logoutUser}
+              > <i className="fa fa-sign-out" /> Logout
+              </NavLink>
             </li>
           </div>);
     }
@@ -52,9 +58,15 @@ const Header = props => (
           <i className="fa fa-bars" />
         </NavLink>
         <ul className="right hide-on-med-and-down" >
-          <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser}/>
+          <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser} />
         </ul>
         <ul className="side-nav" id="mobile-demo">
+          {/* render the profile preview on mobile */}
+          {
+            props.loggedIn
+            ? <ProfileCard userData={props.userData} />
+            : null
+          }
           <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser} />
         </ul>
       </div>
@@ -65,6 +77,7 @@ const Header = props => (
 Header.propTypes = {
     loggedIn: PropTypes.bool.isRequired,
     logoutUser: PropTypes.func.isRequired,
+    userData: PropTypes.object.isRequired,
 };
 
 export default Header;

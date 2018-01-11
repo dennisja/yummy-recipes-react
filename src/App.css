@@ -1,3 +1,17 @@
 .active-nav-link{
   border-bottom: 1px solid white;
 }
+
+#user-info {
+  color: 'black';
+  font-size: '12px'; 
+}
+
+#user-info td {
+  padding: 3px;
+}
+
+#user-info tr {
+  line-height: 40px;
+  color: black;
+}
