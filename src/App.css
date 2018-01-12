@@ -1,10 +1,10 @@
-.active-nav-link{
+.active-nav-link {
   border-bottom: 1px solid white;
 }
 
 #user-info {
   color: 'black';
-  font-size: '12px'; 
+  font-size: '12px';
 }
 
 #user-info td {
@@ -16,11 +16,11 @@
   color: black;
 }
 
-.active-sidebar-link{
+.active-sidebar-link {
   background-color: #ff9800;
 }
 
-.active-nav-link:hover, .active-sidebar-link:hover, .nav-wrapper a:hover{
+.active-nav-link:hover, .active-sidebar-link:hover, .nav-wrapper right a:hover, .nav-wrapper .side-nav a:hover {
   background-color: white;
   color: #ff9800;
 }
