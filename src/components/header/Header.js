@@ -4,32 +4,34 @@ import { NavLink } from 'react-router-dom';
 import ProfileCard from '../profile/ProfileCard';
 
 const MenuItems = (props) => {
-    const { loggedIn, logoutUser } = props;
+    const {
+            loggedIn, logoutUser, userName, activeClass,
+          } = props;
     if (loggedIn) {
         return (
           <div>
             <li>
-              <NavLink to="/">
-                <i className="fa fa-home" activeClassName="active-nav-link" /> Home
+              <NavLink to="/" activeClassName={activeClass} >
+                <i className="fa fa-home" /> Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" activeClassName="active-nav-link">
+              <NavLink to="/recipes" activeClassName={activeClass}>
                 <i className="fa fa-cutlery" /> Recipes
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" activeClassName="active-nav-link">
+              <NavLink to="/categories" activeClassName={activeClass}>
                 <i className="fa fa-tags" /> Categories
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/"
-                activeClassName="active-nav-link"
+                to="/profile"
+                activeClassName={activeClass}
                 id="pdrop"
               >
-                <i className="fa fa-user" /> Profile
+                <i className="fa fa-user" /> {userName}
               </NavLink>
             </li>
             <li>
@@ -47,18 +49,28 @@ const MenuItems = (props) => {
 MenuItems.propTypes = {
     loggedIn: PropTypes.bool.isRequired,
     logoutUser: PropTypes.func.isRequired,
+    userName: PropTypes.string.isRequired,
+    activeClass: PropTypes.string,
+};
+
+MenuItems.defaultProps = {
+  activeClass: 'active-nav-link',
 };
 
 const Header = props => (
-  <div>
+  <header>
     <nav>
-      <div className="nav-wrapper">
+      <div className="nav-wrapper orange">
         <a href="/" className="brand-logo">Yummy Recipes</a>
         <NavLink to="/" data-activates="mobile-demo" className="button-collapse">
           <i className="fa fa-bars" />
         </NavLink>
         <ul className="right hide-on-med-and-down" >
-          <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser} />
+          <MenuItems
+            loggedIn={props.loggedIn}
+            logoutUser={props.logoutUser}
+            userName={props.userData ? props.userData.firstname : 'Profile'}
+          />
         </ul>
         <ul className="side-nav" id="mobile-demo">
           {/* render the profile preview on mobile */}
@@ -67,11 +79,16 @@ const Header = props => (
             ? <ProfileCard userData={props.userData} />
             : null
           }
-          <MenuItems loggedIn={props.loggedIn} logoutUser={props.logoutUser} />
+          <MenuItems
+            loggedIn={props.loggedIn}
+            logoutUser={props.logoutUser}
+            userName={props.userData ? props.userData.firstname : 'Profile'}
+            activeClass="active-sidebar-link"
+          />
         </ul>
       </div>
     </nav>
-  </div>
+  </header>
 );
 
 Header.propTypes = {

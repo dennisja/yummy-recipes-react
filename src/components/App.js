@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import Main from './Main';
 import '../App.css';
 import Header from './header/Header';
+import Footer from './footer/Footer';
+import Token from '../helpers/Token';
 
 
 class App extends Component {
@@ -24,31 +26,39 @@ class App extends Component {
         userData: userData,
     })
     //put data in locationStorage
-    console.log(userData)
+    Token.setToken(userData);
+    // console.log(userData)
   }
 
   logoutUser = ()=>{
     this.setState(App.initialState);
     //clear data from location storage
+    Token.deleteToken();
+  }
+
+  componentDidMount(){
+    const userData = Token.getToken();
+    if(userData){
+      this.loginUser(userData);
+    }
   }
 
   render() {
-    const { loggedIn, userData:{data:userData} } = this.state;
+    const { loggedIn, userData } = this.state;
     return (
       <BrowserRouter>
-        <div>
-          <header>
-            <Header 
-              loggedIn={loggedIn} 
-              logoutUser={this.logoutUser} 
-              userData={userData}/>
-          </header>
+        <div>          
+          <Header 
+            loggedIn={loggedIn} 
+            logoutUser={this.logoutUser} 
+            userData={userData.data}/>          
           <div className="container">
-            <Main loggedIn={loggedIn} userData={this.state.userData} loginUser={this.loginUser} />
+            <Main 
+              loggedIn={loggedIn} 
+              userData={userData.data} 
+              loginUser={this.loginUser} />
           </div>
-          <footer>
-            <h1>This is the footer</h1>
-          </footer>
+          <Footer isLoggedIn={loggedIn}/>
         </div>
       </BrowserRouter>
     );

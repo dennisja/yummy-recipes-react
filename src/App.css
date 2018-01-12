@@ -15,3 +15,12 @@
   line-height: 40px;
   color: black;
 }
+
+.active-sidebar-link{
+  background-color: #ff9800;
+}
+
+.active-nav-link:hover, .active-sidebar-link:hover, .nav-wrapper a:hover{
+  background-color: white;
+  color: #ff9800;
+}
