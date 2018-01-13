@@ -10,7 +10,7 @@ export default class EditProfileForm extends Component {
     componentDidMount(){
         // fetch user data and
         // set state to current values of user data
-        alert(this.state)
+        // alert(this.state)
     }
 
     handleInputChange = (event)=>{
@@ -41,7 +41,7 @@ export default class EditProfileForm extends Component {
               <input type="email" name="email" id="email" onChange={this.handleInputChange} value={this.state.email} required />
             </div>
             <div className="center-align">
-              <input type="submit" value="Edit Profile" id="edit_profile" name="edit_profile" className="btn"/>
+              <input type="submit" value="Edit Profile" id="edit_profile" name="edit_profile" className="btn btn-small orange" />
             </div>
           </form>
         );

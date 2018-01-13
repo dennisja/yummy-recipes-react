@@ -35,7 +35,7 @@ export default class ChangePasswordForm extends Component {
               <input type="password" name="new_password_again" id="new_password_again" onChange={this.handleInpuChange} required />
             </div>
             <div className="center-align">
-                <input type="submit" className="btn" value="Change Password" name="change_password" id="change_pasword" />
+                <input type="submit" className="btn btn-small orange" value="Change Password" name="change_password" id="change_pasword" />
             </div>
           </form>
         );
