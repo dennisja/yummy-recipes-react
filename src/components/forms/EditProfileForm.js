@@ -22,7 +22,7 @@ export default class EditProfileForm extends Component {
 
     handleFormSubmit = ()=>{
         // make request to update user information
-        alert(this.state);
+        alert(JSON.stringify(this.state));
     }
 
     render() {
