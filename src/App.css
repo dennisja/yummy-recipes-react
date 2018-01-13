@@ -20,7 +20,14 @@
   background-color: #ff9800;
 }
 
-.active-nav-link:hover, .active-sidebar-link:hover, .nav-wrapper right a:hover, .nav-wrapper .side-nav a:hover {
+.active-nav-link:hover, .active-sidebar-link:hover, .nav-wrapper .right a:hover, .nav-wrapper .side-nav a:hover {
   background-color: white;
   color: #ff9800;
+}
+
+@media all and (min-width: 993px){
+  .nav-wrapper{
+    padding-right: 20px;
+    padding-left: 20px;
+  }    
 }

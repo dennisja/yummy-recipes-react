@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 import Home from './Home';
 import Dashboard from './Dashboard';
+import Categories from './categories/Categories';
+import Profile from './profile/Profile';
+import Recipes from './recipes/Recipes';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { loggedIn } = rest;
@@ -28,13 +31,28 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 const Main = props => (
   <Switch>
     <Route
-      path="/"
+      path={props.loggedIn ? '/' : '/home'}
       exact
       component={() => <Home loginUser={props.loginUser} loggedIn={props.loggedIn} />}
     />
     <PrivateRoute
       path="/home"
       component={Dashboard}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/recipes"
+      component={Recipes}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/categories"
+      component={Categories}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/profile"
+      component={Profile}
       loggedIn={props.loggedIn}
     />
   </Switch>

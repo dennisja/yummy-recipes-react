@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
 
-const Categories = ()=>(<div>Categories</div>)
+const Categories = () => (<div>Categories</div>);
 
 export default Categories;
