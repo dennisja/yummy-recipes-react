@@ -8,7 +8,7 @@ import Categories from './categories/Categories';
 import { ProfileWithRouter } from './profile/Profile';
 import Recipes from './recipes/Recipes';
 
-const FileNotFound = () => (
+export const FileNotFound = () => (
   <div>File Not found. Check the url and try again</div>
 );
 
@@ -35,7 +35,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 const Main = props => (
   <Switch>
     <Route
-      path={props.loggedIn ? '/' : '/home'}
+      path="/"
       exact
       component={() => <Home loginUser={props.loginUser} loggedIn={props.loggedIn} />}
     />

@@ -37,6 +37,10 @@ class Token {
         return userData;
     }
 
+    static getTokenWithoutHttpCall() {
+        return JSON.parse(localStorage.getItem('YUMMY_USER')).token;
+    }
+
     static deleteToken() {
         if (localStorage.getItem('YUMMY_USER')) {
             localStorage.clear();

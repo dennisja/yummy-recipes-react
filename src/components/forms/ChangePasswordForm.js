@@ -14,7 +14,8 @@ export default class ChangePasswordForm extends Component {
         });
     }
 
-    handleFormSubmit = () =>{
+    handleFormSubmit = (event) =>{
+        event.preventDefault();
         //make api request to change password here
         alert(this.state);
     }
