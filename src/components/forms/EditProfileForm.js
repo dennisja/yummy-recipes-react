@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import User from '../../helpers/User';
+import Token from '../../helpers/Token';
 
 export default class EditProfileForm extends Component {
     state = {
@@ -8,9 +10,14 @@ export default class EditProfileForm extends Component {
     }
 
     componentDidMount(){
-        // fetch user data and
+        // get data of the logged in user
+        const {firstname, lastname, email} = Token.getUserData()
         // set state to current values of user data
-        // alert(this.state)
+        this.setState({
+            firstname,
+            lastname,
+            email
+        })
     }
 
     handleInputChange = (event)=>{
@@ -20,9 +27,24 @@ export default class EditProfileForm extends Component {
         });
     }
 
-    handleFormSubmit = ()=>{
+    handleFormSubmit = (event)=>{
+        event.preventDefault();
         // make request to update user information
-        alert(JSON.stringify(this.state));
+        // if you add another value of state that is not among the sent data
+        // pleease update the sent data
+        User.editUserDetails(this.state)
+        .then(response=>{
+            console.log(response);
+        })
+        .catch(error=>{
+            if(error.response){
+                alert(error.data)
+            }else if (error.request){
+                alert(error.data)
+            }else{
+                alert(JSON.stringify(error))
+            }
+        })
     }
 
     render() {
