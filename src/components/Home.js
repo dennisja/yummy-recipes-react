@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+
 import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
 import FormCard from './forms/FormCard';
-import { Link, Redirect } from 'react-router-dom';
+
+// TODO: Come back and implement redirecting to referer i.e. if you login a user,
+// redirect him or her to the page he wanted to visit other than redirecting him to home always
 
 class Home extends Component {
     render() {
@@ -25,5 +30,10 @@ class Home extends Component {
         );
     }
 }
+
+Home.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+};
 
 export default Home;

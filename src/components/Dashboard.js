@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Dashboard = (props)=>{
-    console.log( {props})
-    
-    return <div>You are logged in boss</div>
-}
+import Categories from './categories/Categories';
+
+const Dashboard = (props) => {
+    console.log({ props });
+
+    return <div>You are logged in boss</div>;
+};
+
 
 export default Dashboard;

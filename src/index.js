@@ -17,8 +17,5 @@ ReactDOM.render(
 registerServiceWorker();
 
 $(document).ready(() => {
-  // $('.dropdown-button').dropdown();
   $('.button-collapse').sideNav();
-  // $('select').material_select();
-  // $('select:not([multiple])').material_select();
 });
