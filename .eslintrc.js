@@ -7,5 +7,6 @@ module.exports = {
         "indent": 0,
         "label-has-for": 0,
         "linebreak-style": 0,
+        "aria-role": 0,
     }
 };

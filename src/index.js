@@ -17,5 +17,6 @@ ReactDOM.render(
 registerServiceWorker();
 
 $(document).ready(() => {
+  $('.collapsible').collapsible();
   $('.button-collapse').sideNav();
 });

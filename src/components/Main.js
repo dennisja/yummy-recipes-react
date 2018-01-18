@@ -7,6 +7,9 @@ import Dashboard from './Dashboard';
 import Categories from './categories/Categories';
 import { ProfileWithRouter } from './profile/Profile';
 import Recipes from './recipes/Recipes';
+import CreateCategory from './CreateCategory';
+import EditCategory from './EditCategory';
+
 
 export const FileNotFound = () => (
   <div>File Not found. Check the url and try again</div>
@@ -52,6 +55,16 @@ const Main = props => (
     <PrivateRoute
       path="/categories"
       component={Categories}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/add-category"
+      component={CreateCategory}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/edit-category/:categoryId"
+      component={EditCategory}
       loggedIn={props.loggedIn}
     />
     <PrivateRoute
