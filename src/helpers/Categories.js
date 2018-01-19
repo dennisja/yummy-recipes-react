@@ -1,35 +1,33 @@
 import Configs from '../configs/Configs';
 import Requests from './Requests';
-import Categories from '../components/categories/Categories';
 
-class Category extends Requests {
-    static addCategory(categoryData) {
-        return Category.axiosInstance.post(Configs.api.categories, categoryData);
+class CategoryRequest extends Requests {
+    static addCategory(CategoryRequestData) {
+        return CategoryRequest.axiosInstance.post(Configs.api.categories, CategoryRequestData);
     }
     static fetchUserCategories() {
-        return Category.axiosInstance.get(Configs.api.categories);
+        return CategoryRequest.axiosInstance.get(Configs.api.categories);
     }
 
-    static editCategory(categoryId, newCategoryData) {
+    static editCategory(CategoryRequestId, newCategoryRequestData) {
         const { categories } = Configs.api;
-        return Category.axiosInstance.put(`${categories}${categoryId}/`, newCategoryData);
+        return CategoryRequest.axiosInstance.put(`${categories}${CategoryRequestId}/`, newCategoryRequestData);
     }
 
-    static deleteCategory(categoryId) {
+    static deleteCategory(CategoryRequestId) {
         const { categories } = Configs.api;
-        return Category.axiosInstance.delete(`${categories}${categoryId}/`);
+        return CategoryRequest.axiosInstance.delete(`${categories}${CategoryRequestId}/`);
     }
 
-    static getCategory(categoryId) {
+    static getCategory(CategoryRequestId) {
         const { categories } = Configs.api;
-        return Category.axiosInstance.get(`${categories}${categoryId}/`);
+        return CategoryRequest.axiosInstance.get(`${categories}${CategoryRequestId}/`);
     }
 
-    static getRecipesInCategory(categoryId) {
+    static getRecipesInCategory(CategoryRequestId) {
         const { categories, recipesUrl } = Configs.api;
-        return Category.axiosInstance.get(`${categories}${categoryId}/${recipesUrl}`);
+        return CategoryRequest.axiosInstance.get(`${categories}${CategoryRequestId}/${recipesUrl}`);
     }
 }
 
-export default Categories;
-
+export default CategoryRequest;
