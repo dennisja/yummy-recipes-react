@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
+import TimeAgo from 'react-timeago';
 
-const Categories = () => (<div>Categories</div>);
+class CategorList extends Component{
+    componentDidMount(){
 
-export default Categories;
+    }
+
+    render(){
+        return(
+            <div className="row">
+                The user Categories
+            </div>
+        )
+    }
+}
+
+export default CategoryList;
