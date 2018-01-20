@@ -16,7 +16,7 @@ class CategoryRequest extends Requests {
 
     static deleteCategory(CategoryRequestId) {
         const { categories } = Configs.api;
-        return CategoryRequest.axiosInstance.delete(`${categories}${CategoryRequestId}/`);
+        return CategoryRequest.axiosInstance.delete(`${categories}${CategoryRequestId}`);
     }
 
     static getCategory(CategoryRequestId) {
