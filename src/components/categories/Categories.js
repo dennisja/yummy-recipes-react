@@ -50,6 +50,7 @@ const Category = (props) => {
                         </tr>
                     </tbody>
                 </table>
+                <hr />
                 <div className="center-align">
                     <Link to={`edit-category/${id}`} className="btn orange btn-small"><i className="fa fa-edit"/>
                         Edit</Link>
@@ -120,7 +121,6 @@ class CategorList extends Component {
             return (<Category category={category} key={category.id} deleteCategory={this.deleteCategory}/>)
         })
 
-        console.log(categoryItems)
 
         return (
             <ul className="collapsible popout" data-collapsible="accordion">

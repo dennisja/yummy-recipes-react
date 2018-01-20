@@ -11,7 +11,7 @@ class CategoryRequest extends Requests {
 
     static editCategory(CategoryRequestId, newCategoryRequestData) {
         const { categories } = Configs.api;
-        return CategoryRequest.axiosInstance.put(`${categories}${CategoryRequestId}/`, newCategoryRequestData);
+        return CategoryRequest.axiosInstance.put(`${categories}${CategoryRequestId}`, newCategoryRequestData);
     }
 
     static deleteCategory(CategoryRequestId) {
@@ -21,7 +21,7 @@ class CategoryRequest extends Requests {
 
     static getCategory(CategoryRequestId) {
         const { categories } = Configs.api;
-        return CategoryRequest.axiosInstance.get(`${categories}${CategoryRequestId}/`);
+        return CategoryRequest.axiosInstance.get(`${categories}${CategoryRequestId}`);
     }
 
     static getRecipesInCategory(CategoryRequestId) {

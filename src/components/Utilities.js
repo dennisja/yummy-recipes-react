@@ -61,7 +61,7 @@ export const YummyNotifier = (props)=>{
         <div className={`card-panel white-text ${NotifierColors[type]}`}>
             {message}
         </div>
-    )
+    );
 }
 
 YummyNotifier.propTypes = {

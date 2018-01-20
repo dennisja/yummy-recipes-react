@@ -4,12 +4,19 @@ import PropTypes from 'prop-types';
 
 import Home from './Home';
 import Dashboard from './Dashboard';
+
 import Categories from './categories/Categories';
+import CreateCategory from './categories/CreateCategory';
+import EditCategory from './categories/EditCategory';
+
 import { ProfileWithRouter } from './profile/Profile';
+
 import Recipes from './recipes/Recipes';
 
+import {YummyNotifier} from './Utilities';
+
 export const FileNotFound = () => (
-  <div>File Not found. Check the url and try again</div>
+  <YummyNotifier message= "File Not found. Check the url and try again" type="info"/>
 );
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -53,6 +60,18 @@ const Main = props => (
       path="/categories"
       component={Categories}
       loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/add-category"
+      component={CreateCategory}
+      loggedIn={props.loggedIn}
+      userData={props.userData}
+    />
+    <PrivateRoute
+      path="/edit-category/:categoryId"
+      component={EditCategory}
+      loggedIn={props.loggedIn}
+      userData={props.userData}
     />
     <PrivateRoute
       path="/profile"

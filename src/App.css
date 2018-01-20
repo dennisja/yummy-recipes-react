@@ -60,7 +60,15 @@ li.active .collapsible-header{
 #toast-container {
   top: auto !important;
   right: auto !important;
-  bottom: 80%;
-  left:25%;
-  background-color: #e65100;
+  bottom: 20%;
+  left:40%;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-bottom: 1px solid #ff9800;
+  box-shadow: 0 1px 0 0 #ff9800;
+  -webkit-box-shadow: 0 1px 0 0 #ff9800;
 }
