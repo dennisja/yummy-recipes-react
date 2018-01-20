@@ -46,12 +46,21 @@
 .center-align .btn{
   margin-right: 5px;
 }
+
 hr{
   border: 1px solid #ff9800;
 }
 
-.collapsible-header .active{
-  text-align: center;
+li.active .collapsible-header{
+  text-align: -webkit-center;
   background-color: #ff9800;
   color: white;
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 80%;
+  left:25%;
+  background-color: #e65100;
 }
