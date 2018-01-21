@@ -12,6 +12,7 @@ import EditCategory from './categories/EditCategory';
 import { ProfileWithRouter } from './profile/Profile';
 
 import Recipes from './recipes/Recipes';
+import CreateRecipe from './recipes/AddRecipes';
 
 import {YummyNotifier} from './Utilities';
 
@@ -54,6 +55,11 @@ const Main = props => (
     <PrivateRoute
       path="/recipes"
       component={Recipes}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/add-recipe"
+      component={CreateRecipe}
       loggedIn={props.loggedIn}
     />
     <PrivateRoute

@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
+import CategoryRequest from '../../helpers/Categories';
+import RecipesRequest from '../../helpers/Recipes';
+import PreLoader from '../Utilities';
+
 const CategoryOptions = (props) => {
     const {categories} = props;
     const options = categories.map(category => (
-        <option value={category.name} key={category.id}>
+        <option value={category.id} key={category.id}>
             {category.name}
         </option>
     ))
@@ -19,30 +23,66 @@ class AddRecipeForm extends Component {
         ingredients: "",
         category: "",
         categories: [
-            {
-                name: "Category 1",
-                id: 1
-            }, {
-                name: "Category 2",
-                id: 2
-            }, {
-                name: "Category3",
-                id: 3
-            }
-        ]
+        ],
+        loading: true,
     }
 
     state = AddRecipeForm.initialState;
 
     componentDidMount(){
-        //initialize materialize select and overcome the select pain
-        const el = ReactDOM.findDOMNode(this.refs.cat);
-        $('select').material_select();
-        $(el).on('change', this.handleInputChange)
+        CategoryRequest.fetchUserCategories()
+        .then(response=>{
+            this.setState({
+                categories: response.data.recipe_cats,
+                loading: false,
+            })
+
+             //initialize materialize select and overcome the select pain
+            const el = ReactDOM.findDOMNode(this.refs.cat);
+            $('select').material_select();
+            $(el).on('change', this.handleInputChange)
+        })
+        .catch(error=>{
+            alert("No categories")
+            if(error.response){
+                console.log(error.response);
+            }
+            else if(error.request){
+                console.log(error.request)
+            }
+        })
+    }
+
+    componentDidUpdate(){
+        if(!this.state.loading){
+            const el = ReactDOM.findDOMNode(this.refs.cat);
+            $('select').material_select();
+            $(el).on('change', this.handleInputChange)
+        }
     }
 
     handleRecipeSubmit = (event) => {
         event.preventDefault();
+        const { categories, loading, ...recipeData} = this.state;
+
+        RecipesRequest.addRecipe(recipeData)
+        .then(response=>{
+            window.Materialize.toast(response.data.message, 4000);
+            this.setState({
+                name: "",
+                ingredients: "",
+                steps: ""
+            })
+        })
+        .catch(error=>{
+            if(error.response){
+
+            }else if (error.request){
+
+            }else{
+
+            }
+        })
     }
 
     handleInputChange = (event) => {
@@ -53,7 +93,14 @@ class AddRecipeForm extends Component {
     }
 
     render() {
-        const {name, steps, ingredients, category, categories} = this.state;
+        const {name, steps, ingredients, category, categories, loading} = this.state;
+
+        if(loading){
+            return(
+                <PreLoader message="Please wait....." />
+            )
+        }
+
         return (
             <form onSubmit={this.handleRecipeSubmit}>
                 <div className="input-field">

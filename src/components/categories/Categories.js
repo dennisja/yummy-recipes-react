@@ -37,7 +37,7 @@ const Category = (props) => {
                                 Created:
                             </td>
                             <td>
-                                <TimeAgo date={created}/>
+                                <TimeAgo date={created+"+3"}/>
                             </td>
                         </tr>
                         <tr>
@@ -45,7 +45,7 @@ const Category = (props) => {
                                 Last Edited:
                             </td>
                             <td>
-                                <TimeAgo date={edited}/>
+                                <TimeAgo date={ edited+"+3" }/>
                             </td>
                         </tr>
                     </tbody>
