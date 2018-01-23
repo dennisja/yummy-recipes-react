@@ -2,67 +2,59 @@ import React, {Component} from 'react';
 import RecipesRequest from '../../helpers/Recipes';
 
 import Preloader from '../Utilities';
+import RecipesList from './RecipeList';
 
-const Recipe = (props)=>{
-    return(
-        <div>
-            Hello
-        </div>
-    )
-}
-
-const RecipesList = props=>{
-    return(
-        <div>
-            <Recipe />
-            <Recipe />
-            <Recipe />
-        </div>
-    )
-}
-
-class Recipes extends Component{
+class Recipes extends Component {
     state = {
         recipes: [],
         loadingRecipes: true,
-        erroOccured : false,
-        errors: [],
+        errorOccured: false,
+        errors: []
     }
 
-    componentDidMount(){
-        RecipesRequest.fetchRecipes()
-        .then(response=>{
-            this.setState({
-                recipes: response.data.recipes,
-                loadingRecipes: false,
-            })
-            console.log(response)
-        })
-        .catch(error=>{
-            //notify user about the error that occured
-            this.setState({
-                errorOccured: true,
-                loadingRecipes: false,
-                errors: ["Set this depending on the error that occured"]
-            })
-            console.log(error.response||error.request||error)
-        })
+    deleteRecipe = (event, id)=>{
+        event.preventDefault();
+        alert('Delete '+ id);
     }
 
-    render(){
-        
-        const {loadingRecipes, erroOccured} = this.state;
+    viewRecipe = (event, id)=>{
+        event.preventDefault();
+        alert('View '+ id)
+    }
+
+    componentDidMount() {
+        RecipesRequest
+            .fetchRecipes()
+            .then(response => {
+                this.setState({recipes: response.data.recipes, loadingRecipes: false})
+                console.log(response)
+            })
+            .catch(error => {
+                //notify user about the error that occured
+                this.setState({errorOccured: true, loadingRecipes: false, errors: ["Set this depending on the error that occured"]})
+                console.log(error.response || error.request || error)
+            })
+    }
+
+    render() {
+
+        const {loadingRecipes, errorOccured, recipes} = this.state;
         let componentToRender = null;
 
-        if(loadingRecipes){
-            componentToRender = (<Preloader message="Fetching Recipes......" />)
-        }else if(erroOccured){
+        if (loadingRecipes) {
+            componentToRender = (<Preloader message="Fetching Recipes......"/>)
+        } else if (errorOccured) {
             componentToRender = "Errors occures"
-        }else{
-            componentToRender = <RecipesList />
+        } else {
+            console.log(recipes)
+            if(recipes.length <= 0){
+                componentToRender = "No Recipes Yet"
+            }else{
+            componentToRender = <RecipesList recipes={recipes} deleteRecipe={this.deleteRecipe} viewRecipe={this.viewRecipe}/>
+            }
         }
 
-        return(
+        return (
             <div className="row">
                 <div className="col s12 m4">
                     SideBar Component Here

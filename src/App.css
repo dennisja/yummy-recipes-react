@@ -72,3 +72,25 @@ textarea.materialize-textarea:focus:not([readonly]){
   box-shadow: 0 1px 0 0 #ff9800;
   -webkit-box-shadow: 0 1px 0 0 #ff9800;
 }
+
+.recipe-card-holder .card-action .btn-small{
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-right: 5px;
+}
+
+.recipe-card-holder .card .card-action{
+  padding: 8px 12px;
+}
+
+.recipe-card-holder .card .card-content {
+  padding: 10px;
+}
+
+.recipe-card-holder .card .card-title{
+  font-size: 18px;
+}
+
+.recipe-card-holder .card .card-reveal .card-title{
+  font-size: 16px;
+}
