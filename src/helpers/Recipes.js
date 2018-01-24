@@ -22,12 +22,12 @@ class RecipesRequest extends Requests {
 
     static deleteRecipe(recipeId) {
         const { recipesUrl } = Configs.api;
-        return RecipesRequest.axiosInstance.delete(`${recipesUrl}${recipeId}/`);
+        return RecipesRequest.axiosInstance.delete(`${recipesUrl}${recipeId}`);
     }
 
     static getSingleRecipe(recipeId) {
         const { recipesUrl } = Configs.api;
-        return RecipesRequest.axiosInstance.get(`${recipesUrl}${recipeId}/`);
+        return RecipesRequest.axiosInstance.get(`${recipesUrl}${recipeId}`);
     }
 }
 

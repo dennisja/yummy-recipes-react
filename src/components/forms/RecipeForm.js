@@ -35,6 +35,7 @@ class AddRecipeForm extends Component {
             this.setState({
                 categories: response.data.recipe_cats,
                 loading: false,
+                category: response.data.recipe_cats[0].id,
             })
 
              //initialize materialize select and overcome the select pain
