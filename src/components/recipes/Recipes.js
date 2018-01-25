@@ -5,6 +5,20 @@ import Preloader from '../Utilities';
 import YummyNotifier from '../Utilities';
 import RecipesList from './RecipeList';
 
+const RecipeModel = props => {
+    return (
+        <div id="recipeModal" className="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-action modal-close waves-effect waves-green btn-flat">close</button>
+            </div>
+        </div>
+    )
+}
+
 class Recipes extends Component {
     state = {
         recipes: [],
@@ -13,29 +27,32 @@ class Recipes extends Component {
         errors: []
     }
 
-    viewRecipe = (event, id)=>{
+    viewRecipe = (event, id) => {
         event.preventDefault();
-        alert('Delete '+ id);
+        alert('Delete ' + id);
     }
 
-    deleteRecipe = (event, id)=>{
+    deleteRecipe = (event, id) => {
         event.preventDefault();
-        RecipesRequest.deleteRecipe(id)
-        .then(response=>{
-            console.log(response.data)
-            window.Materialize.toast(response.data.message, 4000)
-            this.fetchRecipes();
-        })
-        .catch(error=>{
-            if(error.response){
-                console.log(error.response)
-            } else if(error.request){
-                console.log(error.request)
-            }
-        })
+        RecipesRequest
+            .deleteRecipe(id)
+            .then(response => {
+                console.log(response.data)
+                window
+                    .Materialize
+                    .toast(response.data.message, 4000)
+                this.fetchRecipes();
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response)
+                } else if (error.request) {
+                    console.log(error.request)
+                }
+            })
     }
 
-    fetchRecipes(){
+    fetchRecipes() {
         RecipesRequest
             .fetchRecipes()
             .then(response => {
@@ -64,10 +81,13 @@ class Recipes extends Component {
             componentToRender = "Errors occures"
         } else {
             console.log(recipes)
-            if(recipes.length <= 0){
+            if (recipes.length <= 0) {
                 componentToRender = <div className="card-panel center-align">No recipes yet</div>
-            }else{
-                componentToRender = <RecipesList recipes={recipes} deleteRecipe={this.deleteRecipe} viewRecipe={this.viewRecipe}/>
+            } else {
+                componentToRender = <RecipesList
+                    recipes={recipes}
+                    deleteRecipe={this.deleteRecipe}
+                    viewRecipe={this.viewRecipe}/>
             }
         }
 

@@ -13,6 +13,7 @@ import { ProfileWithRouter } from './profile/Profile';
 
 import Recipes from './recipes/Recipes';
 import CreateRecipe from './recipes/AddRecipes';
+import EditRecipe from './recipes/EditRecipe';
 
 import {YummyNotifier} from './Utilities';
 
@@ -60,6 +61,11 @@ const Main = props => (
     <PrivateRoute
       path="/add-recipe"
       component={CreateRecipe}
+      loggedIn={props.loggedIn}
+    />
+    <PrivateRoute
+      path="/edit-recipe/:recipeId"
+      component={EditRecipe}
       loggedIn={props.loggedIn}
     />
     <PrivateRoute

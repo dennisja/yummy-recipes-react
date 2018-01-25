@@ -12,7 +12,7 @@ class RecipesRequest extends Requests {
 
     static editRecipe(recipeId, newRecipeDetails) {
         const { recipesUrl } = Configs.api;
-        return RecipesRequest.axiosInstance.put(`${recipesUrl}${recipeId}/`, newRecipeDetails);
+        return RecipesRequest.axiosInstance.put(`${recipesUrl}${recipeId}`, newRecipeDetails);
     }
 
     static publishRecipe(recipeId) {

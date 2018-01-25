@@ -48,10 +48,10 @@ const Recipe = (props) => {
                         Created: <TimeAgo date={`${created}+3`} />
                     </p>
                     <div className="card-action center-align">
-                        <Link to={`edit-recipe/${id}`} className="btn btn-small orange" title="Add Recipe"><i className="fa fa-edit"/></Link>
-                        <Link to={`delete-recipe/${id}`} onClick={(e)=>props.deleteRecipe(e, id)} className="btn btn-small red" title="Delete Recipe">
+                        <Link to={`edit-recipe/${id}`} className="btn btn-small orange" title={`Edit ${name}`}><i className="fa fa-edit"/></Link>
+                        <Link to={`delete-recipe/${id}`} onClick={(e)=>props.deleteRecipe(e, id)} className="btn btn-small red" title={`Delete ${name}`}>
                         <i className="fa fa-trash-o"/></Link>
-                        <Link to={`view-recipe/${id}`} onClick={(e)=>props.viewRecipe(e, id)} className="btn btn-small red" title="View Recipe">
+                        <Link to={`#recipeModal`} onClick={(e)=>props.viewRecipe(e, id)} className="btn btn-small green waves-effect waves-light modal-trigger" title={`View ${name}`}>
                         <i className="fa fa-eye"/></Link>
                     </div>
                 </div>
