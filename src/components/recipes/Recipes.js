@@ -1,16 +1,45 @@
 import React, {Component} from 'react';
-import RecipesRequest from '../../helpers/Recipes';
+import $ from 'jquery';
+import TimeAgo from 'react-timeago';
 
+import RecipesRequest from '../../helpers/Recipes';
 import Preloader from '../Utilities';
 import YummyNotifier from '../Utilities';
 import RecipesList from './RecipeList';
+import { create } from 'domain';
 
-const RecipeModel = props => {
+export const RecipeModel = props => {
+    const {name, category, steps, ingredients, created, edited} = props.recipe;
     return (
         <div id="recipeModal" className="modal">
             <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
+                <header className="center-align orange white-text">
+                    <h4>{name}</h4>
+                </header>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Created</td>
+                            <td><TimeAgo date={created+"+3"} /></td>
+                        </tr>
+                        <tr>
+                            <td>Edited</td>
+                            <td><TimeAgo date={edited+"+3"} /></td>
+                        </tr>
+                        <tr>
+                            <td>Owner</td>
+                            <td>{`${category.owner_details.firstname} ${category.owner_details.lastname}`}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div className="center-align orange white-text"> Ingredients </div>
+                    <p>{ ingredients }</p>
+                </div>
+                <div>
+                    <div className="center-align orange white-text"> Steps </div>
+                    <pre>{ steps }</pre>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="modal-action modal-close waves-effect waves-green btn-flat">close</button>
@@ -24,12 +53,25 @@ class Recipes extends Component {
         recipes: [],
         loadingRecipes: true,
         errorOccured: false,
-        errors: []
+        errors: [],
+        displayRecipe:false,
+        recipeDetails: null,
     }
 
     viewRecipe = (event, id) => {
         event.preventDefault();
-        alert('Delete ' + id);
+        const{ recipes } = this.state;
+
+        for (let recipe of recipes){
+            if (recipe.id === id){
+                this.setState({
+                    recipeDetails: recipe,
+                    displayRecipe: true,
+                });
+                break;
+            }
+        }
+
     }
 
     deleteRecipe = (event, id) => {
@@ -70,9 +112,16 @@ class Recipes extends Component {
         this.fetchRecipes();
     }
 
+    componentDidUpdate(){
+        if(this.state.displayRecipe){
+            $('.modal').modal();
+            $('#recipeModal').modal('open')
+        }
+    }
+
     render() {
 
-        const {loadingRecipes, errorOccured, recipes} = this.state;
+        const {loadingRecipes, errorOccured, recipes, displayRecipe, recipeDetails} = this.state;
         let componentToRender = null;
 
         if (loadingRecipes) {
@@ -98,6 +147,10 @@ class Recipes extends Component {
                 </div>
                 <div className="col s12 m8">
                     {componentToRender}
+                    {displayRecipe
+                        ?<RecipeModel recipe={recipeDetails} />
+                        : null
+                    }
                 </div>
             </div>
         )
