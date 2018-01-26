@@ -37,6 +37,22 @@ class Token {
         return userData;
     }
 
+    static getTokenWithoutHttpCall() {
+        const user = localStorage.getItem('YUMMY_USER');
+        if (user) {
+            return JSON.parse(user).token;
+        }
+        return false;
+    }
+
+    static getUserData() {
+        const userData = localStorage.getItem('YUMMY_USER');
+        if (userData) {
+            return JSON.parse(userData).data;
+        }
+        return false;
+    }
+
     static deleteToken() {
         if (localStorage.getItem('YUMMY_USER')) {
             localStorage.clear();

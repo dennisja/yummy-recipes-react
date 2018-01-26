@@ -25,9 +25,72 @@
   color: #ff9800;
 }
 
+
+.collection a.collection-item{
+  color: #ff9800;
+}
+
 @media all and (min-width: 993px){
   .nav-wrapper{
     padding-right: 20px;
     padding-left: 20px;
   }    
+}
+
+.btn-small{
+  text-transform: capitalize;
+  height: 30px;
+  line-height: 30px;
+}
+
+.center-align .btn{
+  margin-right: 5px;
+}
+
+hr{
+  border: 1px solid #ff9800;
+}
+
+li.active .collapsible-header{
+  text-align: -webkit-center;
+  background-color: #ff9800;
+  color: white;
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 20%;
+  left:40%;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-bottom: 1px solid #ff9800;
+  box-shadow: 0 1px 0 0 #ff9800;
+  -webkit-box-shadow: 0 1px 0 0 #ff9800;
+}
+
+.recipe-card-holder .card-action .btn-small{
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-right: 5px;
+}
+
+.recipe-card-holder .card .card-action{
+  padding: 8px 12px;
+}
+
+.recipe-card-holder .card .card-content {
+  padding: 10px;
+}
+
+.recipe-card-holder .card .card-title{
+  font-size: 18px;
+}
+
+.recipe-card-holder .card .card-reveal .card-title{
+  font-size: 16px;
 }

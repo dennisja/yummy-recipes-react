@@ -30,7 +30,8 @@ class App extends Component {
     // console.log(userData)
   }
 
-  logoutUser = ()=>{
+  logoutUser = (event)=>{
+    event.preventDefault();
     this.setState(App.initialState);
     //clear data from location storage
     Token.deleteToken();

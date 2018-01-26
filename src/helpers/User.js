@@ -1,19 +1,25 @@
-import axios from 'axios';
+import Requests from './Requests';
 import Configs from '../configs/Configs';
 
-class User {
-    constructor() {
-        this.userData = null;
-    }
-
+class User extends Requests {
     static registerUser(userData) {
         const { baseUrl, registerUrl } = Configs.api;
-
-        return axios.post(`${baseUrl}${registerUrl}`, userData);
+        return User.axios.post(`${baseUrl}${registerUrl}`, userData);
     }
 
-    getUserDetails() {
-        return this.userData;
+    static getUserDetails(userId) {
+        // gets the user details
+        const { users } = Configs.api;
+        return User.axiosInstance.get(`${users}${userId}/`);
+    }
+
+    static changeUserPassword(passwordData) {
+        // changes the user password
+        return User.axiosInstance.patch(Configs.api.users, passwordData);
+    }
+
+    static editUserDetails(newUserData) {
+        return User.axiosInstance.put(Configs.api.users, newUserData);
     }
 }
 

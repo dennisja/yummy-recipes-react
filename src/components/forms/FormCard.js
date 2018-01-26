@@ -6,9 +6,9 @@ const FormCard = (props) => {
    return (
      <div className="card">
        <div className="card-content">
-         <div className="card-title center-align">
+         <div className="card-title center-align orange white-text">
            { iconClass ? (<i className={iconClass} />) : ''}
-           { title }
+           { ` ${title}` }
          </div>
          <hr />
          <div>

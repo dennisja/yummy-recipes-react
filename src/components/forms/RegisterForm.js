@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Configs from '../../configs/Configs';
+import User from '../../helpers/User';
+import Token from '../../helpers/Token';
 
 class RegisterForm extends Component {
     static initialState = {
@@ -23,15 +24,14 @@ class RegisterForm extends Component {
     handleSubmit = (event) =>{
         event.preventDefault();
         const {baseUrl, registerUrl} = Configs.api;
-        const form = event.target;
-        
-        axios.post(`${baseUrl}${registerUrl}`, this.state)
-        .then(response=>{
-            form.reset();
+
+        User.registerUser(this.state)
+        .then((response)=>{
+            alert('yeah')
+            console.log(response)
             this.setState(RegisterForm.initialState);
-            // alert user that he or she has successfully registered
         })
-        .catch(error=>{
+        .catch((error)=>{
             const { data, status } = error.response;
             console.log(data)
             alert(data.errors)
@@ -62,7 +62,7 @@ class RegisterForm extends Component {
                     <input type="password" name="c_password" id="c_password" onChange={this.handleInputChange} value={this.state.c_password} required/>
                 </div>
                 <div className="center-align">
-                    <input type="submit" className="btn" name="register" id="register" value="Register" />
+                    <input type="submit" className="btn btn-small orange" name="register" id="register" value="Register" />
                 </div>
             </form>
         );

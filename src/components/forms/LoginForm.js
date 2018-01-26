@@ -81,7 +81,7 @@ class LoginForm extends Component {
             required/>
         </div>
         <div className="center-align">
-          <input type="submit" className="btn" name="login" id="login" value="Login"/>
+          <input type="submit" className="btn btn-small orange" name="login" id="login" value="Login"/>
         </div>
       </form>
     );

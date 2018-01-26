@@ -11,7 +11,7 @@ const MenuItems = (props) => {
         return (
           <div>
             <li>
-              <NavLink to="/" activeClassName={activeClass} >
+              <NavLink to={loggedIn ? '/home' : '/'} activeClassName={activeClass} >
                 <i className="fa fa-home" /> Home
               </NavLink>
             </li>
@@ -61,7 +61,9 @@ const Header = props => (
   <header>
     <nav>
       <div className="nav-wrapper orange">
-        <a href="/" className="brand-logo">Yummy Recipes</a>
+        <NavLink to={props.loggedIn ? '/home' : '/'} className="brand-logo">
+        Yummy Recipes
+        </NavLink>
         <NavLink to="/" data-activates="mobile-demo" className="button-collapse">
           <i className="fa fa-bars" />
         </NavLink>
