@@ -65,6 +65,7 @@ li.active .collapsible-header{
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]){
@@ -93,4 +94,10 @@ textarea.materialize-textarea:focus:not([readonly]){
 
 .recipe-card-holder .card .card-reveal .card-title{
   font-size: 16px;
+}
+
+@media all and (max-width: 600px){
+  #searchForm .input-field .btn{
+    padding: 0 5px;
+  }
 }

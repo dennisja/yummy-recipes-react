@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import React, { Component } from 'react';
+import Notifications from 'react-notify-toast';
 
 import Main from './Main';
 import '../App.css';
@@ -54,6 +55,7 @@ class App extends Component {
             logoutUser={this.logoutUser} 
             userData={userData.data}/>          
           <div className="container">
+            <Notifications />
             <Main 
               loggedIn={loggedIn} 
               userData={userData.data} 
