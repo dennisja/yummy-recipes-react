@@ -30,6 +30,10 @@ export const RecipeModel = props => {
                             <td>Owner</td>
                             <td>{`${category.owner_details.firstname} ${category.owner_details.lastname}`}</td>
                         </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>{`${category.name}`}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div>
