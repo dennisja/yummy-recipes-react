@@ -101,3 +101,7 @@ textarea.materialize-textarea:focus:not([readonly]){
     padding: 0 5px;
   }
 }
+
+#search-form-holder .card .card-content{
+  padding-bottom: 0;
+}

@@ -39,7 +39,7 @@ class Dashboard extends Component {
             <div className={displaySideBar?"col s3 hide-on-small-only":"hide"}>
                 SideBar here, date one side
             </div>
-            <div className={displaySideBar?"col s9": "col s12"}>
+            <div className={displaySideBar?"col s9": "col s12"} id="search-form-holder">
                 <FormCard 
                     form={<SearchForm 
                                 handleSearchInputFocus={this.handleSearchInputFocus}
