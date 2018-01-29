@@ -7,6 +7,7 @@ import SearchForm from './forms/SearchForm';
 import FormCard from './forms/FormCard';
 import SearchRequests from '../helpers/Search';
 import CategoryRequest from '../helpers/Categories';
+import RecipesRequest from '../helpers/Recipes';
 
 import {Category} from './categories/Categories';
 import RecipesList from './recipes/RecipeList';
@@ -169,7 +170,21 @@ class Dashboard extends Component {
 
     deleteRecipe = (event, recipeId)=>{
         event.preventDefault();
-        alert("Delete "+ recipeId);
+        RecipesRequest.deleteRecipe(recipeId)
+        .then(response => {
+            window
+            .Materialize
+            .toast(response.data.message, 4000)
+            this.getSearchResults(this.state.searchData);
+        })
+        .catch(error => {
+            if (error.response) {
+                const { status, data } = error.response;
+                window.Materialize.toast(data.errors[0], 5000);
+            } else if (error.request) {
+                window.Materialize.toast("Request Can't be made", 4000);
+            }
+        })
     }
 
     viewRecipe = (event, recipeId)=>{
@@ -193,15 +208,15 @@ class Dashboard extends Component {
         CategoryRequest.deleteCategory(categoryId)
         .then(response=>{
             //alert user that he has successfully deleted a recipe
-            window.Materialize.toast(response.data.message, 5000);
+            window.Materialize.toast(response.data.message, 4000);
             this.getSearchResults(searchData);
         })
         .catch(error=>{
             if(error.response){
                 const { status, data } = error.response;
-                window.Materialize.toast(data.errors[0], 5000);
+                window.Materialize.toast(data.errors[0], 4000);
             }else{
-                window.Materialize.toast("Request Can't be made", 5000);
+                window.Materialize.toast("Request Can't be made", 4000);
             }
         })
     }

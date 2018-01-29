@@ -10,7 +10,7 @@ class SearchForm extends Component{
 
     handleSearchInputSubmit = (event)=>{
         event.preventDefault();
-        alert(JSON.stringify(this.state))
+        this.props.getSearchInput(this.state);
     }
 
     handleSearchInputChange = (event)=>{
@@ -21,7 +21,7 @@ class SearchForm extends Component{
     }
 
     getStateOnKeyup = event=>{
-        this.props.getSearchInput(this.state)
+        this.props.getSearchInput(this.state);
     }
     
 
