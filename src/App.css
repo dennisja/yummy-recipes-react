@@ -115,3 +115,15 @@ textarea.materialize-textarea:focus:not([readonly]){
   font-size: 18px;
   padding: 5px;
 }
+
+.pagination .disabled {
+  cursor: not-allowed;
+}
+
+#categoriesTab{
+  padding-bottom: 5px;
+}
+
+#search-content .card .card-title{
+  font-size: 16px;
+}

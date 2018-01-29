@@ -45,10 +45,9 @@ const CategoryList = props=>{
 const Pages = props=>{
     const {totalPages, activePage, handlePageClick} = props;
     const items = new Array(totalPages).fill(1);
-    console.log(items)
     const pageItems = items.map((item, index)=>(
         <li className={(activePage===index+1) ?"active": ""} key={index}>
-            <a href="#!" onClick={e=>handlePageClick(e, index+1)}>
+            <a onClick={e=>handlePageClick(e, index+1, totalPages)}>
                 { index+1 }
             </a>
         </li>
@@ -56,9 +55,13 @@ const Pages = props=>{
 
     return (
     <ul className="pagination">
-        <li className="disabled"><a href="#!"><i className="fa fa-chevron-left"/></a></li>
+        <li className={activePage===1?"disabled":""} disabled={activePage <= 1} onClick={e=>handlePageClick(e, activePage-1, totalPages)}>
+            <a disabled={activePage <= 1}><i className="fa fa-chevron-left"/></a>
+        </li>
             {pageItems}
-        <li className="waves-effect"><a href="#!"><i className="fa fa-chevron-right"/></a></li>
+        <li className={activePage===totalPages?"disabled":""} disabled={activePage >= totalPages} onClick={e=>handlePageClick(e, activePage+1, totalPages)}>
+            <a disabled={activePage >= totalPages}><i className="fa fa-chevron-right"/></a>
+        </li>
     </ul>);
 }
 
@@ -82,24 +85,24 @@ const SearchResults = (props)=>(
         <li className="tab"><a href="#usersTab">Users</a></li>
       </ul>
     </div>
-    <div className="card-content">
+    <div className="card-content" id="search-content">
       <div id="recipesTab">
         {
-            props.recipes_count
+            props.recipes.length
             ?<RecipeList recipes={props.recipes} deleteRecipe={props.deleteRecipe} viewRecipe={props.viewRecipe}/>
             :<p>No matching recipes found </p>
         }
       </div>
       <div id="categoriesTab">
         {
-            props.categories_count
+            props.categories.length
             ?<CategoryList categories={props.categories} deleteCategory={props.deleteCategory}/>
             :<p> No matching categories found </p>
         }
       </div>
       <div id="usersTab">
         {
-            props.users_count
+            props.users.length
             ? <UsersList users={props.users} />
             : <p>No matching users found </p>
         }
@@ -221,8 +224,18 @@ class Dashboard extends Component {
         this.handleSearchInputFocus(event);
     }
 
-    handlePageClick = (event, page)=>{
-        alert(page)
+    handlePageClick = (event, page, totalPages)=>{
+        if(page < 1 || page > totalPages){
+            window.Materialize.toast("You are trying to access a page that doesnot exist", 3000);
+            return ;
+        }
+        const {searchData} = this.state;
+        searchData["page"] = page;
+        this.setState({
+            searchData,
+            page,
+        });
+        this.getSearchResults(searchData);
     }
 
     render(){
