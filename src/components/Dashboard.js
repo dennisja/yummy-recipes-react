@@ -53,6 +53,10 @@ const Pages = props=>{
         </li>
     ));
 
+    if(!totalPages){
+        return null;
+    }
+
     return (
     <ul className="pagination">
         <li className={activePage===1?"disabled":""} disabled={activePage <= 1} onClick={e=>handlePageClick(e, activePage-1, totalPages)}>
@@ -90,21 +94,21 @@ const SearchResults = (props)=>(
         {
             props.recipes.length
             ?<RecipeList recipes={props.recipes} deleteRecipe={props.deleteRecipe} viewRecipe={props.viewRecipe}/>
-            :<p>No matching recipes found </p>
+            :<p className="center-align">No matching recipes on this page </p>
         }
       </div>
       <div id="categoriesTab">
         {
             props.categories.length
             ?<CategoryList categories={props.categories} deleteCategory={props.deleteCategory}/>
-            :<p> No matching categories found </p>
+            :<p className="center-align"> No matching categories on this page </p>
         }
       </div>
       <div id="usersTab">
         {
             props.users.length
             ? <UsersList users={props.users} />
-            : <p>No matching users found </p>
+            : <p className="center-align">No matching users on this page </p>
         }
       </div>
     </div>
@@ -123,7 +127,7 @@ class Dashboard extends Component {
     }
 
     getSearchResults(searchData){
-        searchData["per_page"] = 1;
+        // searchData["per_page"] = 1;
         SearchRequests.search(searchData)
         .then(response=>{
             this.setState({
@@ -140,7 +144,6 @@ class Dashboard extends Component {
     }
 
     handleSearchInputFocus = (event)=>{
-        // alert('Yeah')
         this.setState({
             displaySideBar: false,
             displayRecipe: false,
@@ -148,7 +151,6 @@ class Dashboard extends Component {
     }
 
     handleSearchInputBlur = event=>{
-        // alert('blur')
         this.setState({
             displaySideBar: true,
         })
@@ -156,7 +158,7 @@ class Dashboard extends Component {
 
     handleSearch = data=>{
         if(data.q.length === 0){
-            notify.show(" Empty Balls ", "success", 40000)
+            notify.show("Search term is empty", "warning", 4000)
         }else{
             this.setState({
                 searchData: data
