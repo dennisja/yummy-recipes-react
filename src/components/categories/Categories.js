@@ -7,7 +7,7 @@ import $ from 'jquery';
 import PreLoader, {YummyNotifier} from '../Utilities';
 import CategoryRequest from '../../helpers/Categories';
 
-const Category = (props) => {
+export const Category = (props) => {
     const {name, id, owner_details, created, edited} = props.category;
 
     return (

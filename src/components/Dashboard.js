@@ -1,19 +1,146 @@
 import React, {Component} from 'react';
+import $ from 'jquery';
 import {notify} from 'react-notify-toast';
 
 import Categories from './categories/Categories';
 import SearchForm from './forms/SearchForm';
 import FormCard from './forms/FormCard';
+import SearchRequests from '../helpers/Search';
+import CategoryRequest from '../helpers/Categories';
+
+import {Category} from './categories/Categories';
+import RecipesList from './recipes/RecipeList';
+import RecipeList from './recipes/RecipeList';
+import ProfileCard from './profile/ProfileCard';
+import { RecipeModel } from './recipes/Recipes';
+
+const UsersList = props=>{
+    const { users } = props;
+    const userItems = users.map(user=>(
+        <div className="col s12 m6 l4" key={user.id} >
+            <ProfileCard userData={user}/>
+        </div>
+    ));
+
+    return(
+        <div className="row">
+            {userItems}
+        </div>
+    )
+}
+
+const CategoryList = props=>{
+    const {categories, deleteCategory} = props;
+    const categoryItems = categories.map(category => {
+        return (<Category category={category} key={category.id} deleteCategory={deleteCategory}/>)
+    });
+
+    return (
+        <ul className="collapsible popout" data-collapsible="accordion">
+            {categoryItems}
+        </ul>
+    );
+}
+
+const Pages = props=>{
+    const {totalPages, activePage, handlePageClick} = props;
+    const items = new Array(totalPages).fill(1);
+    console.log(items)
+    const pageItems = items.map((item, index)=>(
+        <li className={(activePage===index+1) ?"active": ""} key={index}>
+            <a href="#!" onClick={e=>handlePageClick(e, index+1)}>
+                { index+1 }
+            </a>
+        </li>
+    ));
+
+    return (
+    <ul className="pagination">
+        <li className="disabled"><a href="#!"><i className="fa fa-chevron-left"/></a></li>
+            {pageItems}
+        <li className="waves-effect"><a href="#!"><i className="fa fa-chevron-right"/></a></li>
+    </ul>);
+}
+
+const SearchResults = (props)=>(
+    <div className="card" id="search-results">
+    <div className="card-content" id="search-results-header">
+        <header className="center-align orange white-text">
+            <h3>Search Results</h3>
+        </header>
+        <div className="row">
+            <div className="col s4 m3 orange-text"><em>Total Results: {props.total_results}</em></div>
+            <div className="col s4 m3 orange-text"><em>Recipes: {props.recipes_count}</em></div>
+            <div className="col s4 m3 orange-text"><em>Categories: {props.categories_count}</em></div>
+            <div className="col s4 m3 orange-text"><em>Users: {props.users_count}</em></div>
+        </div>
+    </div>
+    <div className="card-tabs">
+      <ul className="tabs tabs-fixed-width">
+        <li className="tab"><a href="#recipesTab">Recipes</a></li>
+        <li className="tab"><a className="active" href="#categoriesTab">Categories</a></li>
+        <li className="tab"><a href="#usersTab">Users</a></li>
+      </ul>
+    </div>
+    <div className="card-content">
+      <div id="recipesTab">
+        {
+            props.recipes_count
+            ?<RecipeList recipes={props.recipes} deleteRecipe={props.deleteRecipe} viewRecipe={props.viewRecipe}/>
+            :<p>No matching recipes found </p>
+        }
+      </div>
+      <div id="categoriesTab">
+        {
+            props.categories_count
+            ?<CategoryList categories={props.categories} deleteCategory={props.deleteCategory}/>
+            :<p> No matching categories found </p>
+        }
+      </div>
+      <div id="usersTab">
+        {
+            props.users_count
+            ? <UsersList users={props.users} />
+            : <p>No matching users found </p>
+        }
+      </div>
+    </div>
+  </div>
+);
+
 
 class Dashboard extends Component {
     state={
         displaySideBar: true,
+        results: null,
+        searchData: null,
+        displayRecipe: false,
+        selectedRecipe: null,
+        page: 1,
+    }
+
+    getSearchResults(searchData){
+        searchData["per_page"] = 1;
+        SearchRequests.search(searchData)
+        .then(response=>{
+            this.setState({
+                results: response.data,
+            });
+        })
+        .catch(error=>{
+            if(error.response){
+                console.log(error.response)
+            }else if(error.request){
+                console.log(error.request)
+            }
+        })
     }
 
     handleSearchInputFocus = (event)=>{
         // alert('Yeah')
         this.setState({
             displaySideBar: false,
+            displayRecipe: false,
         })
     }
 
@@ -25,14 +152,81 @@ class Dashboard extends Component {
     }
 
     handleSearch = data=>{
-        console.log(JSON.stringify(data))
         if(data.q.length === 0){
             notify.show(" Empty Balls ", "success", 40000)
+        }else{
+            this.setState({
+                searchData: data
+            });
+            this.getSearchResults(data);
         }
     }
 
+    deleteRecipe = (event, recipeId)=>{
+        event.preventDefault();
+        alert("Delete "+ recipeId);
+    }
+
+    viewRecipe = (event, recipeId)=>{
+        event.preventDefault();
+        const {recipes} = this.state.results;
+
+        for (let recipe of recipes){
+            if (recipe.id === recipeId){
+                this.setState({
+                    selectedRecipe: recipe,
+                    displayRecipe: true,
+                })
+                break;
+            }
+        }
+    }
+
+    deleteCategory = (event, categoryId)=>{
+        event.preventDefault();
+        const {searchData} = this.state;
+        CategoryRequest.deleteCategory(categoryId)
+        .then(response=>{
+            //alert user that he has successfully deleted a recipe
+            window.Materialize.toast(response.data.message, 5000);
+            this.getSearchResults(searchData);
+        })
+        .catch(error=>{
+            if(error.response){
+                const { status, data } = error.response;
+                window.Materialize.toast(data.errors[0], 5000);
+            }else{
+                window.Materialize.toast("Request Can't be made", 5000);
+            }
+        })
+    }
+
+    componentDidUpdate(){
+        if(this.state.results){
+            $('ul.tabs').tabs();
+            $('.collapsible').collapsible();
+        }
+
+        if(this.state.displayRecipe){
+            $('.modal').modal();
+            $('#recipeModal').modal('open');
+        }
+    }
+
+    handleSearchCardMouseLeave = (event)=>{
+        this.handleSearchInputBlur(event);
+    }
+
+    handleSearchCardMouseEnter = (event)=>{
+        this.handleSearchInputFocus(event);
+    }
+
+    handlePageClick = (event, page)=>{
+        alert(page)
+    }
+
     render(){
-        const {displaySideBar} = this.state;
+        const {displaySideBar, results, displayRecipe, selectedRecipe,page} = this.state;
 
         return (
         <div className="row">
@@ -44,8 +238,27 @@ class Dashboard extends Component {
                     form={<SearchForm 
                                 handleSearchInputFocus={this.handleSearchInputFocus}
                                 handleSearchInputBlur={this.handleSearchInputBlur}
-                                getSearchInput={this.handleSearch} />}
-                    title="Search for users, recipes and categories" />
+                                getSearchInput={this.handleSearch}
+                                onMouseLeave={this.handleSearchCardMouseLeave}
+                                onMouseEnter={this.handleSearchCardMouseEnter}/>}
+                    title="Search for users, recipes and categories"/>
+                {
+                    results?
+                    <div>
+                    <SearchResults 
+                        {...results}
+                        deleteCategory={this.deleteCategory}
+                        deleteRecipe={this.deleteRecipe}
+                        viewRecipe={this.viewRecipe} />
+                    <Pages totalPages={results.total_pages} activePage={page} handlePageClick={this.handlePageClick} />
+                    </div>
+                    : null
+                }
+                {
+                    displayRecipe?
+                    <RecipeModel recipe={selectedRecipe} />
+                    :null
+                }
             </div>
         </div>
     );

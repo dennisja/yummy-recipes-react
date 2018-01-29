@@ -105,3 +105,13 @@ textarea.materialize-textarea:focus:not([readonly]){
 #search-form-holder .card .card-content{
   padding-bottom: 0;
 }
+
+ #search-results-header {
+  margin-top: 0;
+  padding-top: 6px;
+}
+
+#search-results-header h3{
+  font-size: 18px;
+  padding: 5px;
+}

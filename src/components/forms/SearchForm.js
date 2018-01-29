@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class SearchForm extends Component{
     static initialState= {
@@ -26,11 +27,11 @@ class SearchForm extends Component{
 
     render(){
         const {q} = this.state;
-        const { handleSearchInputBlur, handleSearchInputFocus} = this.props;
+        const { handleSearchInputBlur, handleSearchInputFocus, onMouseEnter, onMouseLeave} = this.props;
         
         return(
             <form onSubmit={this.handleSearchInputSubmit} id="searchForm">
-                <div class="row">
+                <div className ="row"  onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
                     <div className="input-field col s9 m8 offset-m1 ">
                         <label htmlFor="q">What are you looking for?</label>
                         <input 
@@ -50,4 +51,10 @@ class SearchForm extends Component{
     }
 }
 
+SearchForm.propTypes = {
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    handleSearchInputBlur: PropTypes.func,
+    handleSearchInputFocus: PropTypes.func,
+}
 export default SearchForm;

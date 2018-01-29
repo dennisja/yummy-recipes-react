@@ -12,7 +12,7 @@ export const RecipeModel = props => {
     const {name, category, steps, ingredients, created, edited} = props.recipe;
     return (
         <div id="recipeModal" className="modal">
-            <div class="modal-content">
+            <div className="modal-content">
                 <header className="center-align orange white-text">
                     <h4>{name}</h4>
                 </header>
@@ -45,8 +45,8 @@ export const RecipeModel = props => {
                     <pre>{ steps }</pre>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="modal-action modal-close waves-effect waves-green btn-flat">close</button>
+            <div className="modal-footer">
+                <button className="modal-action modal-close waves-effect waves-green btn-flat">close</button>
             </div>
         </div>
     )
