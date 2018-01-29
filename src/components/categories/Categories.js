@@ -4,6 +4,7 @@ import TimeAgo from 'react-timeago';
 import {Link} from 'react-router-dom';
 import $ from 'jquery';
 
+import SideBar from '../SideBar';
 import PreLoader, {YummyNotifier} from '../Utilities';
 import CategoryRequest from '../../helpers/Categories';
 
@@ -168,7 +169,7 @@ class Categories extends Component {
         return (
             <div className="row">
                 <div className="col s4">
-                    The side menu will go here
+                    <SideBar />
                 </div>
                 <div className="col s8">
                     <div className="card orange-text center-align">

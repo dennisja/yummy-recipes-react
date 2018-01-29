@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 // styles to be applied to the active class
-const activeStyles = {
+export const activeStyles = {
     backgroundColor: '#ff9800',
     color: 'white',
 };

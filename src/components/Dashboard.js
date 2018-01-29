@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import {notify} from 'react-notify-toast';
 
+import SideBar from './SideBar';
 import Categories from './categories/Categories';
 import SearchForm from './forms/SearchForm';
 import FormCard from './forms/FormCard';
@@ -261,7 +262,7 @@ class Dashboard extends Component {
         return (
         <div className="row">
             <div className={displaySideBar?"col s3 hide-on-small-only":"hide"}>
-                SideBar here, date one side
+                <SideBar />
             </div>
             <div className={displaySideBar?"col s9": "col s12"} id="search-form-holder">
                 <FormCard 

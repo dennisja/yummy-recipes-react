@@ -7,6 +7,7 @@ import Preloader from '../Utilities';
 import YummyNotifier from '../Utilities';
 import RecipesList from './RecipeList';
 import { create } from 'domain';
+import SideBar from '../SideBar';
 
 export const RecipeModel = props => {
     const {name, category, steps, ingredients, created, edited} = props.recipe;
@@ -147,9 +148,12 @@ class Recipes extends Component {
         return (
             <div className="row">
                 <div className="col s12 m4">
-                    SideBar Component Here
+                    <SideBar />
                 </div>
                 <div className="col s12 m8">
+                    <div className="card orange-text center-align">
+                        <div className="card-title">Recipes</div>
+                    </div>
                     {componentToRender}
                     {displayRecipe
                         ?<RecipeModel recipe={recipeDetails} />
