@@ -73,4 +73,25 @@ YummyNotifier.defaultProps = {
     type: "danger"
 }
 
+// generates a list of errors
+export const Errors = ({ errors })=>(
+  <ul>
+    {
+      errors.map((error, index)=>(
+        <li>{error}</li>
+      ))
+    }
+  </ul>
+)
+
+Errors.propTypes = {
+  errors: PropTypes.array.isRequired,
+}
+
+// Object to house common error messages
+export const errorMessages = {
+  connection: "Request can't be made. Check your internet connection and try again",
+};
+
 export default PreLoader;
+
