@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {notify} from 'react-notify-toast';
+
 import axios from 'axios';
 import Configs from "../../configs/Configs"
+import {errorMessages, Errors } from '../Utilities';
+import User from '../../helpers/User';
+
 class LoginForm extends Component {
   static initialState = {
     email: '',
@@ -25,32 +30,20 @@ class LoginForm extends Component {
     const {onLoginSubmit} = this.props;
     const {baseUrl, loginUrl} = Configs.api
     //submit form
-    axios({
-      method: "POST",
-      url: `${baseUrl}${loginUrl}`,
-      auth: {
-        username: this.state.email,
-        password: this.state.password
-      }
-    }).then(response => {
-      alert('Yeah')
+    User.loginUser(this.state)
+    .then(response => {
       this.setState(LoginForm.initialState);
+      //send data to the top level component
       onLoginSubmit(response.data);
     }).catch(error => {
-      alert('Nah')
+
       if (error.response) {
         const {data, status} = error.response;
-        //data has the errors arra
-        if ("errors" in data) {
-          alert(data.errors);
-        }
-        console.log(data);
-        console.log(status);
+        notify.show(<Errors errors={data.errors}/>, "error", 6000);
       } else if (error.request) {
-        console.log(error.request);
-        alert(JSON.stringify(error.request))
+        notify.show(errorMessages.connection, "error", 5000);
       } else {
-        console.log('Error', error.message);
+        notify.show(errorMessages.connection, "error", 5000);
       }
     })
   }
