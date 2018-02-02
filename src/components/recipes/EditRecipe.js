@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 
 import FormCard from '../forms/FormCard';
 import EditRecipeForm from '../forms/EditRecipeForm';
-import PreLoader from '../Utilities';
+import PreLoader, {displayError} from '../Utilities';
 import RecipesRequest from '../../helpers/Recipes';
 
 class EditRecipe extends Component {
@@ -23,11 +23,7 @@ class EditRecipe extends Component {
             })
         })
         .catch(error=>{
-            if(error.response){
-                console.log('error')
-            }else if(error.request){
-                console.log('response')
-            }
+            displayError(error);
         })
     }
 
@@ -35,7 +31,8 @@ class EditRecipe extends Component {
         const { loadedRecipe, recipeData } = this.state;
 
         if(!loadedRecipe){
-            return(<PreLoader message="Checking Recipe information. Please wait...."/>)
+            return(<PreLoader 
+                message="Checking Recipe information. Please wait...."/>);
         }
 
         return (

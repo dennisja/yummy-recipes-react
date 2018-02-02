@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {notify} from 'react-notify-toast';
 
-import Configs from '../../configs/Configs';
 import User from '../../helpers/User';
-import Token from '../../helpers/Token';
-import {Errors, errorMessages} from '../Utilities';
+import {displayError} from '../Utilities';
 
 class RegisterForm extends Component {
     static initialState = {
@@ -33,12 +31,7 @@ class RegisterForm extends Component {
             this.setState(RegisterForm.initialState);
         })
         .catch((error)=>{
-            if(error.response){
-                const { data, status } = error.response;
-                notify.show(<Errors errors={data.errors} />, "error", 8000);
-            }else if(error.request){
-                notify.show(errorMessages.connection, "error", 4000);
-            }
+            displayError(error);
         })
     }
 

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {notify} from 'react-notify-toast';
 
 import axios from 'axios';
-import Configs from "../../configs/Configs"
-import {errorMessages, Errors } from '../Utilities';
+import {displayError} from '../Utilities';
 import User from '../../helpers/User';
 
 class LoginForm extends Component {
@@ -32,7 +30,6 @@ class LoginForm extends Component {
   handleLoginSubmit = (event) => {
     event.preventDefault();
     const {onLoginSubmit} = this.props;
-    const {baseUrl, loginUrl} = Configs.api
     //submit form
     User.loginUser(this.state)
     .then(response => {
@@ -40,15 +37,7 @@ class LoginForm extends Component {
       //send data to the top level component
       onLoginSubmit(response.data);
     }).catch(error => {
-
-      if (error.response) {
-        const {data, status} = error.response;
-        notify.show(<Errors errors={data.errors}/>, "error", 6000);
-      } else if (error.request) {
-        notify.show(errorMessages.connection, "error", 5000);
-      } else {
-        notify.show(errorMessages.connection, "error", 5000);
-      }
+      displayError(error);
     })
   }
 

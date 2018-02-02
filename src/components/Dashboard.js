@@ -15,7 +15,7 @@ import RecipesList from './recipes/RecipeList';
 import RecipeList from './recipes/RecipeList';
 import ProfileCard from './profile/ProfileCard';
 import {RecipeModel} from './recipes/Recipes';
-import {Errors, errorMessages} from './Utilities';
+import {displayError} from './Utilities';
 
 const UsersList = props=>{
     const { users } = props;
@@ -138,14 +138,7 @@ class Dashboard extends Component {
             });
         })
         .catch(error=>{
-            if (error.response) {
-                const {data, status} = error.response;
-                notify.show(<Errors errors={data.errors}/>, "error", 6000);
-            } else if (error.request) {
-                notify.show(errorMessages.connection, "error", 5000);
-            } else {
-                notify.show(errorMessages.connection, "error", 5000);
-            }
+            displayError(error);
         })
     }
 
@@ -183,12 +176,7 @@ class Dashboard extends Component {
             this.getSearchResults(this.state.searchData);
         })
         .catch(error => {
-            if (error.response) {
-                const { status, data } = error.response;
-                window.Materialize.toast(data.errors[0], 5000);
-            } else if (error.request) {
-                window.Materialize.toast("Request Can't be made", 4000);
-            }
+           displayError(error);
         })
     }
 
@@ -217,12 +205,7 @@ class Dashboard extends Component {
             this.getSearchResults(searchData);
         })
         .catch(error=>{
-            if(error.response){
-                const { status, data } = error.response;
-                window.Materialize.toast(data.errors[0], 4000);
-            }else{
-                window.Materialize.toast("Request Can't be made", 4000);
-            }
+            displayError(error);
         })
     }
 
