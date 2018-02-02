@@ -18,15 +18,14 @@ class RegisterForm extends Component {
     state = RegisterForm.initialState;
 
     handleInputChange = (event) => {
-        const target = event.target;
+        const {name,value} = event.target;
         this.setState({
-            [target.name]: target.value
+            [name]: value
         });
     }
 
     handleSubmit = (event) =>{
         event.preventDefault();
-        const {baseUrl, registerUrl} = Configs.api;
 
         User.registerUser(this.state)
         .then((response)=>{

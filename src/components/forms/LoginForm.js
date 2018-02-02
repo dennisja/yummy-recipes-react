@@ -8,6 +8,10 @@ import {errorMessages, Errors } from '../Utilities';
 import User from '../../helpers/User';
 
 class LoginForm extends Component {
+  static propTypes = {
+    onLoginSubmit: PropTypes.func.isRequired
+  }
+
   static initialState = {
     email: '',
     password: ''
@@ -19,9 +23,9 @@ class LoginForm extends Component {
   }
 
   handleInputChange = (event) => {
-    const target = event.target;
+    const {name, value} = event.target;
     this.setState({
-      [target.name]: target.value
+      [name]: value
     })
   }
 
@@ -80,9 +84,5 @@ class LoginForm extends Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  onLoginSubmit: PropTypes.func.isRequired
-};
 
 export default LoginForm;

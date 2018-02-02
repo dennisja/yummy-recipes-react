@@ -14,7 +14,8 @@ import {Category} from './categories/Categories';
 import RecipesList from './recipes/RecipeList';
 import RecipeList from './recipes/RecipeList';
 import ProfileCard from './profile/ProfileCard';
-import { RecipeModel } from './recipes/Recipes';
+import {RecipeModel} from './recipes/Recipes';
+import {Errors, errorMessages} from './Utilities';
 
 const UsersList = props=>{
     const { users } = props;
@@ -137,10 +138,13 @@ class Dashboard extends Component {
             });
         })
         .catch(error=>{
-            if(error.response){
-                console.log(error.response)
-            }else if(error.request){
-                console.log(error.request)
+            if (error.response) {
+                const {data, status} = error.response;
+                notify.show(<Errors errors={data.errors}/>, "error", 6000);
+            } else if (error.request) {
+                notify.show(errorMessages.connection, "error", 5000);
+            } else {
+                notify.show(errorMessages.connection, "error", 5000);
             }
         })
     }
