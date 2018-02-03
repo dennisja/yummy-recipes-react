@@ -2,17 +2,18 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AddCategoryForm from '../forms/CategoryForm';
 import FormCard from '../forms/FormCard';
+import SideBar from '../SideBar';
 
-const CreateCategory = () => (
+const CreateCategoryWithNoRouter = props => (
   <div className="row">
     <div className="col m4">
-        side bar component here
+      <SideBar />
     </div>
     <div className="col m8">
-      <FormCard form={<AddCategoryForm />} title="Add New Category" />
+      <FormCard form={<AddCategoryForm {...props} />} title="Add New Category" />
     </div>
   </div>
 );
 
-// const CreateCategoryWithRouter = withRouter(CreateCategory);
+const CreateCategory = withRouter(CreateCategoryWithNoRouter);
 export default CreateCategory;

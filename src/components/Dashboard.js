@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import {notify} from 'react-notify-toast';
+import PropTypes from 'prop-types';
 
 import SideBar from './SideBar';
-import Categories from './categories/Categories';
 import SearchForm from './forms/SearchForm';
 import FormCard from './forms/FormCard';
 import SearchRequests from '../helpers/Search';
@@ -12,7 +12,6 @@ import RecipesRequest from '../helpers/Recipes';
 
 import {Category} from './categories/Categories';
 import RecipesList from './recipes/RecipeList';
-import RecipeList from './recipes/RecipeList';
 import ProfileCard from './profile/ProfileCard';
 import {RecipeModel} from './recipes/Recipes';
 import {displayError} from './Utilities';
@@ -96,7 +95,7 @@ const SearchResults = (props)=>(
       <div id="recipesTab">
         {
             props.recipes.length
-            ?<RecipeList recipes={props.recipes} deleteRecipe={props.deleteRecipe} viewRecipe={props.viewRecipe}/>
+            ?<RecipesList recipes={props.recipes} deleteRecipe={props.deleteRecipe} viewRecipe={props.viewRecipe}/>
             :<p className="center-align">No matching recipes on this page </p>
         }
       </div>
@@ -118,6 +117,16 @@ const SearchResults = (props)=>(
   </div>
 );
 
+SearchResults.propTypes = {
+    total_results: PropTypes.number.isRequired,
+    recipes_count: PropTypes.number.isRequired,
+    categories_count: PropTypes.number.isRequired,
+    users_count: PropTypes.number.isRequired,
+    viewRecipe: PropTypes.func.isRequired,
+    deleteRecipe: PropTypes.func.isRequired,
+    deleteCategory: PropTypes.func.isRequired,
+}
+
 
 class Dashboard extends Component {
     state={
@@ -130,7 +139,7 @@ class Dashboard extends Component {
     }
 
     getSearchResults(searchData){
-        // searchData["per_page"] = 1;
+        searchData["per_page"] = 5;
         SearchRequests.search(searchData)
         .then(response=>{
             this.setState({
