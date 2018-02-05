@@ -115,7 +115,6 @@ class CategorList extends Component {
             return (<Category category={category} key={category.id} deleteCategory={this.deleteCategory}/>)
         })
 
-
         return (
             <ul className="collapsible popout" data-collapsible="accordion">
                 {categoryItems.reverse()}

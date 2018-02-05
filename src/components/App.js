@@ -8,6 +8,7 @@ import '../App.css';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import Token from '../helpers/Token';
+import Requests from '../helpers/Requests';
 
 
 class App extends Component {
@@ -26,15 +27,17 @@ class App extends Component {
         loggedIn: true,
         userData: userData,
     })
-    //put data in locationStorage
+    // put data in locationStorage
     Token.setToken(userData);
-    // console.log(userData)
+
+    // set the access token of the axios instance
+    Requests.axiosInstance.defaults.headers.common['x-access-token'] = Token.getTokenWithoutHttpCall();
   }
 
   logoutUser = (event)=>{
     event.preventDefault();
     this.setState(App.initialState);
-    //clear data from location storage
+    // clear data from location storage
     Token.deleteToken();
   }
 

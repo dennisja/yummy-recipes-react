@@ -5,6 +5,7 @@ import FormCard from '../forms/FormCard';
 import EditRecipeForm from '../forms/EditRecipeForm';
 import PreLoader, {displayError} from '../Utilities';
 import RecipesRequest from '../../helpers/Recipes';
+import SideBar from '../SideBar';
 
 class EditRecipe extends Component {
     state = {
@@ -38,7 +39,7 @@ class EditRecipe extends Component {
         return (
             <div className="row">
                 <div className="col m4">
-                    Side bar menu here
+                    <SideBar />
                 </div>
                 <div className="col m8">
                     <FormCard form={< EditRecipeForm {...recipeData} />} title={`Edit ${recipeData.name}`}/>
