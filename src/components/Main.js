@@ -41,55 +41,55 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     />);
 };
 
-const Main = props => (
+const Main = ({ loginUser, loggedIn, userData }) => (
   <Switch>
     <Route
       path="/"
       exact
-      component={() => <Home loginUser={props.loginUser} loggedIn={props.loggedIn} />}
+      component={props => <Home loginUser={loginUser} loggedIn={loggedIn} {...props} />}
     />
     <PrivateRoute
       path="/home"
       component={Dashboard}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/recipes"
       component={Recipes}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/add-recipe"
       component={CreateRecipe}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/edit-recipe/:recipeId"
       component={EditRecipe}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/categories"
       component={Categories}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/add-category"
       component={CreateCategory}
-      loggedIn={props.loggedIn}
-      userData={props.userData}
+      loggedIn={loggedIn}
+      userData={userData}
     />
     <PrivateRoute
       path="/edit-category/:categoryId"
       component={EditCategory}
-      loggedIn={props.loggedIn}
-      userData={props.userData}
+      loggedIn={loggedIn}
+      userData={userData}
     />
     <PrivateRoute
       path="/profile"
       component={ProfileWithRouter}
-      loggedIn={props.loggedIn}
-      userData={props.userData}
+      loggedIn={loggedIn}
+      userData={userData}
     />
     <Route component={FileNotFound} />
   </Switch>
