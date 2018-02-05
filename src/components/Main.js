@@ -15,10 +15,10 @@ import Recipes from './recipes/Recipes';
 import CreateRecipe from './recipes/AddRecipes';
 import EditRecipe from './recipes/EditRecipe';
 
-import {YummyNotifier} from './Utilities';
+import { YummyNotifier } from './Utilities';
 
 export const FileNotFound = () => (
-  <YummyNotifier message= "File Not found. Check the url and try again" type="info"/>
+  <YummyNotifier message="File Not found. Check the url and try again" type="info" />
 );
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -30,7 +30,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={
         props => (
           loggedIn
-          ? <Component userData={userData} />
+          ? <Component userData={userData} {...props} />
           : <Redirect to={{
             pathname: '/',
             state: { from: props.location },
@@ -99,7 +99,11 @@ const Main = props => (
 Main.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.object,
+};
+
+Main.defaultProps = {
+  userData: null,
 };
 
 PrivateRoute.propTypes = {

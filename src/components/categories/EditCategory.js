@@ -1,10 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import AddCategoryForm from '../forms/CategoryForm';
 import FormCard from '../forms/FormCard';
 import SideBar from '../SideBar';
 
-const EditCategory = withRouter((props) => {
+const EditCategory = (props) => {
     const { categoryId } = props.match.params;
     return (
       <div className="row">
@@ -19,6 +20,15 @@ const EditCategory = withRouter((props) => {
         </div>
       </div>
     );
-});
+};
+
+EditCategory.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    isExact: PropTypes.bool,
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
+};
 
 export default EditCategory;

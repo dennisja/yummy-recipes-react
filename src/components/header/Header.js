@@ -96,7 +96,11 @@ const Header = props => (
 Header.propTypes = {
     loggedIn: PropTypes.bool.isRequired,
     logoutUser: PropTypes.func.isRequired,
-    userData: PropTypes.object.isRequired,
+    userData: PropTypes.object,
+};
+
+Header.defaultProps = {
+  userData: null,
 };
 
 export default Header;

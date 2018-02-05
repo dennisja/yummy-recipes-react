@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
 
 import FormCard from '../forms/FormCard';
 import EditRecipeForm from '../forms/EditRecipeForm';
@@ -49,5 +48,4 @@ class EditRecipe extends Component {
     }
 }
 
-EditRecipe = withRouter(EditRecipe);
 export default EditRecipe;

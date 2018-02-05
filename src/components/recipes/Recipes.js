@@ -6,7 +6,6 @@ import RecipesRequest from '../../helpers/Recipes';
 import Preloader from '../Utilities';
 import YummyNotifier from '../Utilities';
 import RecipesList from './RecipeList';
-import { create } from 'domain';
 import SideBar from '../SideBar';
 
 export const RecipeModel = props => {
