@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import { MemoryRouter, Link } from 'react-router-dom';
 
 import adapter from '../../Adapter';
 
@@ -24,7 +23,11 @@ describe('Footer Tests', () => {
         expect(shallowToJson(shortCutsBtn)).toMatchSnapshot();
     });
 
-    it('ShortCuts Button has a has two links', () => {
+    it('ShortCuts Button has a has one div', () => {
         expect(shortCutsBtn.find('div').length).toEqual(1);
+    });
+
+    it('ShortCuts Button has a has two links', () => {
+        expect(shortCutsBtn.find('Link').length).toEqual(2);
     });
 });
