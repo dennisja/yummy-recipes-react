@@ -108,7 +108,7 @@ Main.defaultProps = {
 
 PrivateRoute.propTypes = {
   component: PropTypes.oneOfType([React.Component, Function]).isRequired,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
 };
 
 export default Main;

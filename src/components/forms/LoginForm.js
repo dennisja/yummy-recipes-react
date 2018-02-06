@@ -15,10 +15,7 @@ class LoginForm extends Component {
     password: ''
   }
 
-  constructor(props) {
-    super(props);
-    this.state = LoginForm.initialState;
-  }
+  state = LoginForm.initialState;
 
   handleInputChange = (event) => {
     const {name, value} = event.target;
