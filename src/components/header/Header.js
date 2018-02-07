@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ProfileCard from '../profile/ProfileCard';
 
-const MenuItems = (props) => {
+export const MenuItems = (props) => {
     const {
             loggedIn, logoutUser, userName, activeClass,
           } = props;

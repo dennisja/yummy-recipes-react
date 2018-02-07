@@ -10,13 +10,13 @@ describe('Test App top level component', () => {
     expect(shallowToJson(appWrapper)).toMatchSnapshot();
   });
 
-  it('Has the right initial state', () => {
+  it('has the right initial state', () => {
     expect(appWrapper.state().loggedIn).toEqual(false);
     expect(appWrapper.state().userData.data).toEqual(null);
     expect(appWrapper.state().userData.token).toEqual('');
   });
 
-  it('Renders a Header, Main and Footer components', () => {
+  it('renders a Header, Main and Footer components', () => {
     expect(appWrapper.find('Header')).toHaveLength(1);
     expect(appWrapper.find('Main')).toHaveLength(1);
     expect(appWrapper.find('Footer')).toHaveLength(1);
