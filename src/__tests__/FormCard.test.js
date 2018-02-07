@@ -2,9 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import FormCard from './FormCard';
-import RegisterForm from './RegisterForm';
-import adapter from '../../Adapter';
+import FormCard from '../components/forms/FormCard';
+import RegisterForm from '../components/forms/RegisterForm';
 
 describe('Test form Card', () => {
     const formCardWrapper = shallow(<FormCard title="Register Form" form={<RegisterForm />} />);

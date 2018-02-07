@@ -2,9 +2,7 @@ import React from 'react';
 import { shallow, render } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import adapter from '../../Adapter';
-
-import Footer, { ShortCutsButton } from './Footer';
+import Footer, { ShortCutsButton } from '../components/footer/Footer';
 
 
 describe('Footer Tests', () => {
