@@ -62,7 +62,7 @@ export const Category = (props) => {
     )
 }
 
-class CategorList extends Component {
+export class CategoryList extends Component {
     state = {
         categories: [],
     }
@@ -168,7 +168,7 @@ class Categories extends Component {
                         <div className="card-title">Categories</div>
                     </div>
                     {loader}
-                    <CategorList onFetchCategories={this.onFetchCategories} handleFetchError={this.handleFetchError}/>
+                    <CategoryList onFetchCategories={this.onFetchCategories} handleFetchError={this.handleFetchError}/>
                 </div>
             </div>
         )

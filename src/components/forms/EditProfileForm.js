@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import User from '../../helpers/User';
 import Token from '../../helpers/Token';
+import {displayError} from '../Utilities';
 
 export default class EditProfileForm extends Component {
     state = {
@@ -31,19 +32,13 @@ export default class EditProfileForm extends Component {
         event.preventDefault();
         // make request to update user information
         // if you add another value of state that is not among the sent data
-        // pleease update the sent data
+        // please update the sent data
         User.editUserDetails(this.state)
         .then(response=>{
-            console.log(response);
+            window.Materialize.toast(response.data.message, 4000)
         })
         .catch(error=>{
-            if(error.response){
-                alert(error.data)
-            }else if (error.request){
-                alert(error.data)
-            }else{
-                alert(JSON.stringify(error))
-            }
+            displayError(error)
         })
     }
 

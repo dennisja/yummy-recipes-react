@@ -225,7 +225,14 @@ class Dashboard extends Component {
         }
 
         if(this.state.displayRecipe){
-            $('.modal').modal();
+            // initialize modal, detect when its closed and disable displaying it
+            $('.modal').modal({
+                complete: ()=>{
+                    this.setState({
+                        displayRecipe: false,
+                    })
+                }
+            });
             $('#recipeModal').modal('open');
         }
     }

@@ -3,8 +3,7 @@ import $ from 'jquery';
 import TimeAgo from 'react-timeago';
 
 import RecipesRequest from '../../helpers/Recipes';
-import Preloader from '../Utilities';
-import YummyNotifier from '../Utilities';
+import Preloader, {YummyNotifier, displayError} from '../Utilities';
 import RecipesList from './RecipeList';
 import SideBar from '../SideBar';
 
@@ -83,18 +82,13 @@ class Recipes extends Component {
         RecipesRequest
             .deleteRecipe(id)
             .then(response => {
-                console.log(response.data)
                 window
                     .Materialize
                     .toast(response.data.message, 4000)
                 this.fetchRecipes();
             })
             .catch(error => {
-                if (error.response) {
-                    console.log(error.response)
-                } else if (error.request) {
-                    console.log(error.request)
-                }
+                displayError(error);
             })
     }
 
@@ -103,12 +97,11 @@ class Recipes extends Component {
             .fetchRecipes()
             .then(response => {
                 this.setState({recipes: response.data.recipes, loadingRecipes: false})
-                console.log(response)
             })
             .catch(error => {
                 //notify user about the error that occured
                 this.setState({errorOccured: true, loadingRecipes: false, errors: ["Set this depending on the error that occured"]})
-                console.log(error.response || error.request || error)
+                displayError(error)
             })
     }
 
@@ -133,7 +126,6 @@ class Recipes extends Component {
         } else if (errorOccured) {
             componentToRender = "Errors occures"
         } else {
-            console.log(recipes)
             if (recipes.length <= 0) {
                 componentToRender = <div className="card-panel center-align">No recipes yet</div>
             } else {
