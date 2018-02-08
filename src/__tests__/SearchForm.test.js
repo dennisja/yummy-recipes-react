@@ -1,10 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import LoginForm from '../components/forms/LoginForm';
 
-describe('Test LoginForm', () => {
-    const formWrapper = shallow(<LoginForm onLoginSubmit={jest.fn()} />);
+import SearchForm from '../components/forms/SearchForm';
+
+describe('Test SearchForm', () => {
+    const formWrapper = shallow(<SearchForm
+      onMouseEnter={jest.fn()}
+      onMouseLeave={jest.fn()}
+      handleSearchInputBlur={jest.fn()}
+      handleSearchInputFocus={jest.fn()}
+      getSearchInput={jest.fn()}
+    />);
     const preventDefault = jest.fn();
 
 
@@ -17,9 +24,7 @@ describe('Test LoginForm', () => {
     });
 
     it('renders the correct form fields', () => {
-        expect(formWrapper.find('#email').length).toBe(1);
-        expect(formWrapper.find('#password').length).toBe(1);
-        expect(formWrapper.find('#login').length).toBe(1);
+        expect(formWrapper.find('#q').length).toBe(1);
     });
 
     it('submits data', () => {
