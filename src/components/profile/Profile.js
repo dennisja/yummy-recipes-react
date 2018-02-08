@@ -43,7 +43,7 @@ const ProfileMenu = ({ match }) => (
   </div>
 );
 
-const ProfileOption = ({ match }) => {
+const ProfileOption = ({ match, updateUserData }) => {
     const { option } = match.params;
     return (
       <div>
@@ -55,7 +55,7 @@ const ProfileOption = ({ match }) => {
               iconClass="fa fa-edit"
             />
             : <FormCard
-              form={<EditProfileForm />}
+              form={<EditProfileForm updateUserData={updateUserData} />}
               title="Edit Profile"
               iconClass="fa fa-pencil"
             />
@@ -81,41 +81,41 @@ const UserIntro = (props) => {
     );
 };
 
-const Profile = (props) => {
-    const { match, userData } = props;
-  return (
-    <div className="row">
-      {/* visible on mobile only */}
-      <div className="col s10 hide-on-med-and-up offset-s1">
-        <ProfileMenu match={match} />
-      </div>
-      {/* visible on medium and large devices */}
-      <div className="col m4 hide-on-small-only offset-s1">
-        <ProfileMenu match={match} />
-      </div>
-      <div className="col s10 m8 offset-s1">
-        <UserIntro userData={userData} />
-        <Route path={`${match.url}/:option`} component={ProfileOption} />
-        <Route
-          exact
-          path={match.url}
-          render={() => (
-            <div className="card center-align">
-              <div className="card-content">
-                <div className="card-title orange white-text">
-                  {`${userData.lastname} ${userData.firstname}'s Profile`}
-                </div>
-                <UserInfo {...userData} />
+const Profile = ({ match, userData, updateUserData }) => (
+  <div className="row">
+    {/* visible on mobile only */}
+    <div className="col s10 hide-on-med-and-up offset-s1">
+      <ProfileMenu match={match} />
+    </div>
+    {/* visible on medium and large devices */}
+    <div className="col m4 hide-on-small-only offset-s1">
+      <ProfileMenu match={match} />
+    </div>
+    <div className="col s10 m8 offset-s1">
+      <UserIntro userData={userData} />
+      <Route path={`${match.url}/:option`} component={props => <ProfileOption {...props} updateUserData={updateUserData} />} />
+      <Route
+        exact
+        path={match.url}
+        render={() => (
+          <div className="card center-align">
+            <div className="card-content">
+              <div className="card-title orange white-text">
+                {`${userData.lastname} ${userData.firstname}'s Profile`}
               </div>
-            </div>)}
-        />
-      </div>
-    </div>);
-};
+              <UserInfo {...userData} />
+            </div>
+          </div>)}
+      />
+    </div>
+  </div>);
 
 ProfileMenu.propTypes = propTypes;
 
-Profile.propTypes = propTypes;
+Profile.propTypes = {
+ ...propTypes,
+updateUserData: PropTypes.func.isRequired,
+};
 
 
 export const ProfileWithRouter = withRouter(Profile);

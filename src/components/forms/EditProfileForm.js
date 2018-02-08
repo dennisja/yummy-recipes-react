@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import User from '../../helpers/User';
 import Token from '../../helpers/Token';
 import {displayError} from '../Utilities';
@@ -8,6 +9,10 @@ export default class EditProfileForm extends Component {
         firstname: "",
         lastname: "",
         email: "",
+    }
+
+    static propType = {
+        updateUserData: PropTypes.func.isRequired,
     }
 
     componentDidMount(){
@@ -33,9 +38,11 @@ export default class EditProfileForm extends Component {
         // make request to update user information
         // if you add another value of state that is not among the sent data
         // please update the sent data
-        User.editUserDetails(this.state)
+        const { dataUpdated, ...rest} = this.state;
+        User.editUserDetails(rest)
         .then(response=>{
-            window.Materialize.toast(response.data.message, 4000)
+            this.props.updateUserData(response.data.new_user_details);
+            window.Materialize.toast(response.data.message, 4000);
         })
         .catch(error=>{
             displayError(error)

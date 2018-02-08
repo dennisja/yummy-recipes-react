@@ -30,7 +30,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={
         props => (
           loggedIn
-          ? <Component userData={userData} {...props} />
+          ? <Component userData={userData} {...props} {...rest} />
           : <Redirect to={{
             pathname: '/',
             state: { from: props.location },
@@ -41,7 +41,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     />);
 };
 
-const Main = ({ loginUser, loggedIn, userData }) => (
+const Main = ({
+loginUser, loggedIn, userData, updateUserData,
+}) => (
   <Switch>
     <Route
       path="/"
@@ -90,6 +92,7 @@ const Main = ({ loginUser, loggedIn, userData }) => (
       component={ProfileWithRouter}
       loggedIn={loggedIn}
       userData={userData}
+      updateUserData={updateUserData}
     />
     <Route component={FileNotFound} />
   </Switch>
@@ -100,6 +103,7 @@ Main.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
   userData: PropTypes.object,
+  updateUserData: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {

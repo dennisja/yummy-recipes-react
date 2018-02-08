@@ -27,8 +27,6 @@ class App extends Component {
         loggedIn: true,
         userData: userData,
     })
-    // put data in locationStorage
-    Token.setToken(userData);
 
     // set the access token of the axios instance
     Requests.axiosInstance.defaults.headers.common['x-access-token'] = Token.getTokenWithoutHttpCall();
@@ -41,10 +39,26 @@ class App extends Component {
     Token.deleteToken();
   }
 
+  updateUserData = (newUserData)=>{
+    this.setState({
+      userData:{
+        data: newUserData,
+        token: this.state.userData.token,
+      }
+    });
+  }
+
   componentDidMount(){
     const userData = Token.getToken();
     if(userData){
       this.loginUser(userData);
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.state.loggedIn){
+    // put data in locationStorage if a user is logged in
+      Token.setToken(this.state.userData);
     }
   }
 
@@ -62,7 +76,8 @@ class App extends Component {
             <Main 
               loggedIn={loggedIn} 
               userData={userData.data} 
-              loginUser={this.loginUser} />
+              loginUser={this.loginUser}
+              updateUserData={this.updateUserData} />
           </div>
           <Footer isLoggedIn={loggedIn}/>
         </div>
