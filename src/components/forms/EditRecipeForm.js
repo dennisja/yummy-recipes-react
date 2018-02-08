@@ -7,7 +7,7 @@ import CategoryRequest from '../../helpers/Categories';
 import RecipesRequest from '../../helpers/Recipes';
 import PreLoader, {displayError} from '../Utilities';
 
-const CategoryOptions = (props) => {
+export const CategoryOptions = (props) => {
     const {categories} = props;
     const options = categories.map(category => (
         <option value={category.id} key={category.id}>
@@ -157,7 +157,7 @@ class EditRecipeForm extends Component {
                     <label htmlFor="category">Category</label>
                 </div>
                 <div className="center-align">
-                    <input type="submit" value="Edit Recipe" className="btn btn-small orange"/>
+                    <input type="submit" value="Edit Recipe" className="btn btn-small orange" id="submit_recipe"/>
                 </div>
             </form>
         );

@@ -4,7 +4,7 @@ import { shallowToJson } from 'enzyme-to-json';
 
 import ChangePasswordForm from '../components/forms/ChangePasswordForm';
 
-describe('Test CategoryForm', () => {
+describe('Test ChangePasswordForm', () => {
     const formWrapper = shallow(<ChangePasswordForm />);
     const preventDefault = jest.fn();
 
