@@ -1,6 +1,8 @@
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
+import { notify } from 'react-notify-toast';
+
 configure({ adapter: new Adapter() });
 
 class LocalStorageMock {
@@ -23,5 +25,8 @@ class LocalStorageMock {
       delete this.store[key];
     }
   }
+
+//mocking react-notify-toast dhow function
+notify.show = jest.fn();
 
 global.localStorage = new LocalStorageMock();
