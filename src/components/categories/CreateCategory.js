@@ -4,7 +4,7 @@ import AddCategoryForm from '../forms/CategoryForm';
 import FormCard from '../forms/FormCard';
 import SideBar from '../SideBar';
 
-const CreateCategoryWithNoRouter = props => (
+const CreateCategory = props => (
   <div className="row">
     <div className="col m4">
       <SideBar />
@@ -15,5 +15,4 @@ const CreateCategoryWithNoRouter = props => (
   </div>
 );
 
-const CreateCategory = withRouter(CreateCategoryWithNoRouter);
 export default CreateCategory;

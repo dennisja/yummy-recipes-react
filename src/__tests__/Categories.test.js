@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-
 import Categories, { Category, CategoryList } from '../components/categories/Categories';
+import $ from 'jquery';
+
+$('.collapsible').collapsible = jest.fn();
 
 const category = {
     name: 'H',
@@ -51,13 +53,15 @@ describe('Test Category component', () => {
 
 describe('Test CategoryList component', () => {
     const categoryListWrapper = shallow(<CategoryList />);
-    jest.mock('jquery');
-    jest.mock('materialize-css');
+
     it('renders properly', () => {
         expect(shallowToJson(categoryListWrapper)).toMatchSnapshot();
     });
 
-    it('renders categoy elements', () => {
+    it('renders category elements', () => {
+        const categories = new Array(10).fill(category);
         expect(categoryListWrapper.find('Category')).toHaveLength(0);
+        categoryListWrapper.setState({ categories });
+        expect(categoryListWrapper.find('Category')).toHaveLength(categories.length);
     });
 });
