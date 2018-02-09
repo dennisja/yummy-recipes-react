@@ -6,7 +6,7 @@
 This is the yummy recipes react implementation. It consumes the yummy-recipes-api
 
 ## Installation and Running
-You first need to have the yummy-recipe-api installed
+You first need to have the yummy-recipe-api installed.
 See installation details [here](https://github.com/dennisja/yummy-recipes-api) 
 ### Clone the repository
 ```
@@ -18,35 +18,35 @@ $ cd yummy-recipes-react
 
 - If you have yarn installed
 ```
-yarn
+$ yarn
 ```
 
 - If you are using npm
 ```
-npm install
+$ npm install
 ```
 
 ## Running the application
 
 - If you have yarn installed
 ```
-yarn start
+$ yarn start
 ```
 
 - If you are using npm
 ```
-npm start
+$ npm start
 ```
 
 ## Running the tests
 
 - If you have yarn installed
 ```
-yarn test --coverage 
+$ yarn test --coverage 
 ```
 
 - If you are using npm
 ```
-npm test
+$ npm test
 ```
 
