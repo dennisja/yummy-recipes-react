@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import {notify} from 'react-notify-toast';
 
 import CategoryRequest from '../../helpers/Categories';
-
+import {displayError} from '../Utilities';
 
 class AddCategoryForm extends Component {
     static initialState = {
         cat_name: ''
+    }
+
+    static propTypes = {
+        role: PropTypes.string,
     }
 
     static defaultProps = {
@@ -25,12 +30,7 @@ class AddCategoryForm extends Component {
                 })
             })
             .catch((error)=>{
-                //if cateogory doent exist, redirect and flag an error
-                if(error.response){
-                    console.log(error.response)
-                }else if(error.request){
-                    console.log(error.request)
-                }
+                displayError(error);
             });
         }
     }
@@ -52,10 +52,11 @@ class AddCategoryForm extends Component {
             //add recipe 
             CategoryRequest.addCategory(this.state)
             .then(response=>{
-                console.log(response)
+                notify.show(response.data.message,'success',4000);
+                this.props.history.push('/categories')
             })
             .catch(error=>{
-                console.log(error)
+                displayError(error);
             })
         }
 
@@ -65,14 +66,9 @@ class AddCategoryForm extends Component {
             .then(response=>{
                 window.Materialize.toast("Successfully Edited category", 4000);
                 this.props.history.push('/categories')
-                console.log(response)
             })
             .catch(error=>{
-                if(error.response){
-                    console.log(error);
-                }else if(error.request){
-                    console.log(error);
-                }
+                displayError(error);
             })
         }
     }
@@ -98,10 +94,6 @@ class AddCategoryForm extends Component {
             </form>
         );
     }
-}
-
-AddCategoryForm.propTypes = {
-    role: PropTypes.string,
 }
 
 export default AddCategoryForm;

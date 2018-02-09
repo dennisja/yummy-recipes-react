@@ -1,28 +1,34 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import AddCategoryForm from '../forms/CategoryForm';
 import FormCard from '../forms/FormCard';
-import CategoryRequest from '../../helpers/Categories';
+import SideBar from '../SideBar';
 
-class EditCategory extends Component {
-    
-    render() {
-        const {categoryId} = this.props.match.params;
-        return (
-            <div className="row">
-                <div className="col m4">
-                    side bar component here
-                </div>
-                <div className="col m8">
-                    <FormCard
-                        form={< AddCategoryForm role = "edit" 
-                                    categoryId = {categoryId } {...this.props}/>}
-                        title="Edit Category"/>
-                </div>
-            </div>
-        );
-    }
-}
+const EditCategory = (props) => {
+    const { categoryId } = props.match.params;
+    return (
+      <div className="row">
+        <div className="col m4">
+          <SideBar />
+        </div>
+        <div className="col m8">
+          <FormCard
+            form={<AddCategoryForm role="edit" categoryId={categoryId} {...props} />}
+            title="Edit Category"
+          />
+        </div>
+      </div>
+    );
+};
 
-EditCategory = withRouter(EditCategory);
+EditCategory.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    isExact: PropTypes.bool,
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
+};
+
 export default EditCategory;

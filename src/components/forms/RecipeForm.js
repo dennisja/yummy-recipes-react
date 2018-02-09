@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import {notify} from 'react-notify-toast';
 
 import CategoryRequest from '../../helpers/Categories';
 import RecipesRequest from '../../helpers/Recipes';
-import PreLoader from '../Utilities';
+import PreLoader, {displayError } from '../Utilities';
 
 const CategoryOptions = (props) => {
     const {categories} = props;
@@ -44,13 +45,7 @@ class AddRecipeForm extends Component {
             $(el).on('change', this.handleInputChange)
         })
         .catch(error=>{
-            alert("No categories")
-            if(error.response){
-                console.log(error.response);
-            }
-            else if(error.request){
-                console.log(error.request)
-            }
+            displayError(error);
         })
     }
 
@@ -76,13 +71,7 @@ class AddRecipeForm extends Component {
             })
         })
         .catch(error=>{
-            if(error.response){
-
-            }else if (error.request){
-
-            }else{
-
-            }
+            displayError(error);
         })
     }
 

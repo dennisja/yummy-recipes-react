@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import User from '../../helpers/User';
+import { displayError } from '../Utilities';
 
 export default class ChangePasswordForm extends Component {
     state = {
@@ -17,14 +18,13 @@ export default class ChangePasswordForm extends Component {
 
     handleFormSubmit = (event) =>{
         event.preventDefault();
-        alert('Yeah')
         //make api request to change password here
         User.changeUserPassword(this.state)
         .then(response=>{
-            console.log(response);
+            window.Materialize.toast(response.data.message, 4000)
         })
         .catch(error=>{
-            console.log(error)
+            displayError(error);
         })
     }
 

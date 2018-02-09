@@ -15,10 +15,10 @@ import Recipes from './recipes/Recipes';
 import CreateRecipe from './recipes/AddRecipes';
 import EditRecipe from './recipes/EditRecipe';
 
-import {YummyNotifier} from './Utilities';
+import { YummyNotifier } from './Utilities';
 
 export const FileNotFound = () => (
-  <YummyNotifier message= "File Not found. Check the url and try again" type="info"/>
+  <YummyNotifier message="File Not found. Check the url and try again" type="info" />
 );
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -30,7 +30,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={
         props => (
           loggedIn
-          ? <Component userData={userData} />
+          ? <Component userData={userData} {...props} {...rest} />
           : <Redirect to={{
             pathname: '/',
             state: { from: props.location },
@@ -41,55 +41,58 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     />);
 };
 
-const Main = props => (
+const Main = ({
+loginUser, loggedIn, userData, updateUserData,
+}) => (
   <Switch>
     <Route
       path="/"
       exact
-      component={() => <Home loginUser={props.loginUser} loggedIn={props.loggedIn} />}
+      component={props => <Home loginUser={loginUser} loggedIn={loggedIn} {...props} />}
     />
     <PrivateRoute
       path="/home"
       component={Dashboard}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/recipes"
       component={Recipes}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/add-recipe"
       component={CreateRecipe}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/edit-recipe/:recipeId"
       component={EditRecipe}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/categories"
       component={Categories}
-      loggedIn={props.loggedIn}
+      loggedIn={loggedIn}
     />
     <PrivateRoute
       path="/add-category"
       component={CreateCategory}
-      loggedIn={props.loggedIn}
-      userData={props.userData}
+      loggedIn={loggedIn}
+      userData={userData}
     />
     <PrivateRoute
       path="/edit-category/:categoryId"
       component={EditCategory}
-      loggedIn={props.loggedIn}
-      userData={props.userData}
+      loggedIn={loggedIn}
+      userData={userData}
     />
     <PrivateRoute
       path="/profile"
       component={ProfileWithRouter}
-      loggedIn={props.loggedIn}
-      userData={props.userData}
+      loggedIn={loggedIn}
+      userData={userData}
+      updateUserData={updateUserData}
     />
     <Route component={FileNotFound} />
   </Switch>
@@ -99,12 +102,17 @@ const Main = props => (
 Main.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   loginUser: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.object,
+  updateUserData: PropTypes.func.isRequired,
+};
+
+Main.defaultProps = {
+  userData: null,
 };
 
 PrivateRoute.propTypes = {
   component: PropTypes.oneOfType([React.Component, Function]).isRequired,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
 };
 
 export default Main;

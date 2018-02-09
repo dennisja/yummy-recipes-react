@@ -8,9 +8,6 @@ class Requests {
 
     static axiosInstance = axios.create({
         baseURL: Configs.api.baseUrl,
-        headers: {
-            'x-access-token': Token.getTokenWithoutHttpCall() || 'undefined'
-        }
     });
 
 

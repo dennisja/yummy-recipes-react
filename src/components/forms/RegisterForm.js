@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Configs from '../../configs/Configs';
+import {notify} from 'react-notify-toast';
+
 import User from '../../helpers/User';
-import Token from '../../helpers/Token';
+import {displayError} from '../Utilities';
 
 class RegisterForm extends Component {
     static initialState = {
@@ -15,26 +16,22 @@ class RegisterForm extends Component {
     state = RegisterForm.initialState;
 
     handleInputChange = (event) => {
-        const target = event.target;
+        const {name,value} = event.target;
         this.setState({
-            [target.name]: target.value
+            [name]: value
         });
     }
 
     handleSubmit = (event) =>{
         event.preventDefault();
-        const {baseUrl, registerUrl} = Configs.api;
 
         User.registerUser(this.state)
         .then((response)=>{
-            alert('yeah')
-            console.log(response)
+            notify.show(response.data.messages[0], "success", 4000);
             this.setState(RegisterForm.initialState);
         })
         .catch((error)=>{
-            const { data, status } = error.response;
-            console.log(data)
-            alert(data.errors)
+            displayError(error);
         })
     }
 

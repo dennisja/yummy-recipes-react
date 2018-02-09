@@ -5,9 +5,9 @@ import {Redirect} from 'react-router-dom';
 
 import CategoryRequest from '../../helpers/Categories';
 import RecipesRequest from '../../helpers/Recipes';
-import PreLoader from '../Utilities';
+import PreLoader, {displayError} from '../Utilities';
 
-const CategoryOptions = (props) => {
+export const CategoryOptions = (props) => {
     const {categories} = props;
     const options = categories.map(category => (
         <option value={category.id} key={category.id}>
@@ -23,45 +23,46 @@ class EditRecipeForm extends Component {
         steps: "",
         ingredients: "",
         category: "",
-        categories: [
-        ],
+        categories: [],
         loading: true,
-        redirectToRecipes: false,
+        redirectToRecipes: false
     }
 
     state = EditRecipeForm.initialState;
 
-    componentDidMount(){
-        const {name, steps, ingredients, category:{id:category}} = this.props;
-        CategoryRequest.fetchUserCategories()
-        .then(response=>{
-            this.setState({
-                category,
-                steps,
-                ingredients,
-                name,
-                categories: response.data.recipe_cats,
-                loading: false,
-            })
+    componentDidMount() {
+        const {
+            name,
+            steps,
+            ingredients,
+            category: {
+                id: category
+            }
+        } = this.props;
+        CategoryRequest
+            .fetchUserCategories()
+            .then(response => {
+                this.setState({
+                    category,
+                    steps,
+                    ingredients,
+                    name,
+                    categories: response.data.recipe_cats,
+                    loading: false
+                })
 
-             //initialize materialize select and overcome the select pain
-            const el = ReactDOM.findDOMNode(this.refs.cat);
-            $('select').material_select();
-            $(el).on('change', this.handleInputChange)
-        })
-        .catch(error=>{
-            alert("No categories")
-            if(error.response){
-                console.log(error.response);
-            }
-            else if(error.request){
-                console.log(error.request)
-            }
-        })
+                //initialize materialize select and overcome the select pain
+                const el = ReactDOM.findDOMNode(this.refs.cat);
+                $('select').material_select();
+                $(el).on('change', this.handleInputChange)
+            })
+            .catch(error => {
+                displayError(error);
+            })
     }
 
-    componentDidUpdate(){
-        if(!this.state.loading){
+    componentDidUpdate() {
+        if (!this.state.loading) {
             const el = ReactDOM.findDOMNode(this.refs.cat);
             $('select').material_select();
             $(el).on('change', this.handleInputChange)
@@ -70,44 +71,47 @@ class EditRecipeForm extends Component {
 
     handleRecipeSubmit = (event) => {
         event.preventDefault();
-        const { categories, loading, ...recipeData} = this.state;
+        const {
+            categories,
+            loading,
+            ...recipeData
+        } = this.state;
 
-        RecipesRequest.editRecipe(this.props.id ,recipeData)
-        .then(response=>{
-            window.Materialize.toast(response.data.message, 4000);
-            this.setState({
-                redirectToRecipes: true,
+        RecipesRequest
+            .editRecipe(this.props.id, recipeData)
+            .then(response => {
+                window
+                    .Materialize
+                    .toast(response.data.message, 4000);
+                this.setState({redirectToRecipes: true})
             })
-        })
-        .catch(error=>{
-            if(error.response){
-
-            }else if (error.request){
-
-            }else{
-
-            }
-        })
+            .catch(error => {
+                displayError(error);
+            })
     }
 
     handleInputChange = (event) => {
         const {name, value} = event.target;
-        this.setState({
-            [name]:value
-        })
+        this.setState({[name]: value})
     }
 
     render() {
-        const {name, steps, ingredients, category, categories, loading, redirectToRecipes} = this.state;
+        const {
+            name,
+            steps,
+            ingredients,
+            category,
+            categories,
+            loading,
+            redirectToRecipes
+        } = this.state;
 
-        if(loading){
-            return(
-                <PreLoader message="Please wait....." />
-            )
+        if (loading) {
+            return (<PreLoader message="Please wait....."/>)
         }
 
-        if(redirectToRecipes){
-            return <Redirect to="/recipes" />
+        if (redirectToRecipes) {
+            return <Redirect to="/recipes"/>
         }
 
         return (
@@ -132,18 +136,28 @@ class EditRecipeForm extends Component {
                 </div>
                 {/* Edit textarea for steps */}
                 <div className="input-field">
-                    <textarea value={steps} onChange={this.handleInputChange} name="steps" id="steps" className="materialize-textarea"/>
+                    <textarea
+                        value={steps}
+                        onChange={this.handleInputChange}
+                        name="steps"
+                        id="steps"
+                        className="materialize-textarea"/>
                     <label htmlFor="steps">Steps</label>
                 </div>
                 {/* Edit select field for category */}
                 <div className="input-field">
-                    <select  name="category" ref="cat" id="category" value={category} onChange={this.handleInputChange} >
-                        <CategoryOptions categories={categories} />
+                    <select
+                        name="category"
+                        ref="cat"
+                        id="category"
+                        value={category}
+                        onChange={this.handleInputChange}>
+                        <CategoryOptions categories={categories}/>
                     </select>
                     <label htmlFor="category">Category</label>
                 </div>
                 <div className="center-align">
-                    <input type="submit" value="Edit Recipe" className="btn btn-small orange" /> 
+                    <input type="submit" value="Edit Recipe" className="btn btn-small orange" id="submit_recipe"/>
                 </div>
             </form>
         );

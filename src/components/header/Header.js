@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ProfileCard from '../profile/ProfileCard';
 
-const MenuItems = (props) => {
+export const MenuItems = (props) => {
     const {
             loggedIn, logoutUser, userName, activeClass,
           } = props;
@@ -96,7 +96,11 @@ const Header = props => (
 Header.propTypes = {
     loggedIn: PropTypes.bool.isRequired,
     logoutUser: PropTypes.func.isRequired,
-    userData: PropTypes.object.isRequired,
+    userData: PropTypes.object,
+};
+
+Header.defaultProps = {
+  userData: null,
 };
 
 export default Header;

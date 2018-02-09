@@ -1,57 +1,40 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
 import axios from 'axios';
-import Configs from "../../configs/Configs"
+import {displayError} from '../Utilities';
+import User from '../../helpers/User';
+
 class LoginForm extends Component {
+  static propTypes = {
+    onLoginSubmit: PropTypes.func.isRequired
+  }
+
   static initialState = {
     email: '',
     password: ''
   }
 
-  constructor(props) {
-    super(props);
-    this.state = LoginForm.initialState;
-  }
+  state = LoginForm.initialState;
 
   handleInputChange = (event) => {
-    const target = event.target;
+    const {name, value} = event.target;
     this.setState({
-      [target.name]: target.value
+      [name]: value
     })
   }
 
   handleLoginSubmit = (event) => {
     event.preventDefault();
     const {onLoginSubmit} = this.props;
-    const {baseUrl, loginUrl} = Configs.api
     //submit form
-    axios({
-      method: "POST",
-      url: `${baseUrl}${loginUrl}`,
-      auth: {
-        username: this.state.email,
-        password: this.state.password
-      }
-    }).then(response => {
-      alert('Yeah')
+    User.loginUser(this.state)
+    .then(response => {
       this.setState(LoginForm.initialState);
+      //send data to the top level component
       onLoginSubmit(response.data);
     }).catch(error => {
-      alert('Nah')
-      if (error.response) {
-        const {data, status} = error.response;
-        //data has the errors arra
-        if ("errors" in data) {
-          alert(data.errors);
-        }
-        console.log(data);
-        console.log(status);
-      } else if (error.request) {
-        console.log(error.request);
-        alert(JSON.stringify(error.request))
-      } else {
-        console.log('Error', error.message);
-      }
+      displayError(error);
     })
   }
 
@@ -87,9 +70,5 @@ class LoginForm extends Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  onLoginSubmit: PropTypes.func.isRequired
-};
 
 export default LoginForm;

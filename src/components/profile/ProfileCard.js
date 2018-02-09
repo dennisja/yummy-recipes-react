@@ -8,11 +8,11 @@ export const UserInfo = props => (
   <table id={props.stylesId}>
     <tbody>
       <tr>
-        <td>First Name:</td>
+        <td className="truncate">First Name:</td>
         <td>{props.firstname}</td>
       </tr>
       <tr>
-        <td>Last Name:</td>
+        <td className="truncate">Last Name:</td>
         <td>{props.lastname}</td>
       </tr>
       <tr>
@@ -52,7 +52,7 @@ const ProfileCard = (props) => {
           </span>
         </div>
         <div className="card-reveal">
-          <span className="card-title grey-text text-darken-4">
+          <span className="card-title grey-text text-darken-4 truncate">
             {name} <i className="fa fa-close right" />
           </span>
           <div>

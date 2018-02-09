@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import TimeAgo from 'react-timeago';
 import {Link} from 'react-router-dom';
 import $ from 'jquery';
 
-import PreLoader, {YummyNotifier} from '../Utilities';
+import SideBar from '../SideBar';
+import PreLoader, {YummyNotifier, displayError} from '../Utilities';
 import CategoryRequest from '../../helpers/Categories';
 
-const Category = (props) => {
+export const Category = (props) => {
     const {name, id, owner_details, created, edited} = props.category;
 
     return (
@@ -62,7 +62,7 @@ const Category = (props) => {
     )
 }
 
-class CategorList extends Component {
+export class CategoryList extends Component {
     state = {
         categories: [],
     }
@@ -76,12 +76,11 @@ class CategorList extends Component {
             })
             .catch(error => {
                 if(error.response){
-                    const { status, data } = error.response;
+                    const { data } = error.response;
                     //send data and error to a higher order method to signal occurance of an error 
                     //and that no recipe is created yet
                     this.props.handleFetchError(data.errors[0])
                 }else if (error.request){
-                    console.log(error.request)
                     window.Materialize.toast("Request Can't be made", 5000);
                 }
             })
@@ -97,12 +96,7 @@ class CategorList extends Component {
             this.getUserCategories();
         })
         .catch(error=>{
-            if(error.response){
-                const { status, data } = error.response;
-                window.Materialize.toast(data.errors[0], 5000);
-            }else{
-                window.Materialize.toast("Request Can't be made", 5000);
-            }
+           displayError(error);
         })
     }
 
@@ -115,16 +109,15 @@ class CategorList extends Component {
     }
 
     render() {
-        const {categories, fullyLoaded} = this.state;
+        const {categories} = this.state;
         // create a list of categories
         const categoryItems = categories.map(category => {
             return (<Category category={category} key={category.id} deleteCategory={this.deleteCategory}/>)
         })
 
-
         return (
             <ul className="collapsible popout" data-collapsible="accordion">
-                {categoryItems}
+                {categoryItems.reverse()}
             </ul>
         )
     }
@@ -168,14 +161,14 @@ class Categories extends Component {
         return (
             <div className="row">
                 <div className="col s4">
-                    The side menu will go here
+                    <SideBar />
                 </div>
                 <div className="col s8">
                     <div className="card orange-text center-align">
                         <div className="card-title">Categories</div>
                     </div>
                     {loader}
-                    <CategorList onFetchCategories={this.onFetchCategories} handleFetchError={this.handleFetchError}/>
+                    <CategoryList onFetchCategories={this.onFetchCategories} handleFetchError={this.handleFetchError}/>
                 </div>
             </div>
         )
