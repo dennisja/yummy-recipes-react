@@ -5,6 +5,3 @@ node_js:
 
 script:
   - yarn test -- -u --coverage 
-
-after_success:
-  - coveralls
