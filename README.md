@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/dennisja/yummy-recipes-react.svg?branch=master)](https://travis-ci.org/dennisja/yummy-recipes-react)
 [![Coverage Status](https://coveralls.io/repos/github/dennisja/yummy-recipes-react/badge.svg?branch=master)](https://coveralls.io/github/dennisja/yummy-recipes-react?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b5cedf195a5198221239/maintainability)](https://codeclimate.com/github/dennisja/yummy-recipes-react/maintainability)
 
 # yummy-recipes-react
 

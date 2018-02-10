@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test form Card Renders properly 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="card-content"
+  >
+    <div
+      className="card-title center-align orange white-text"
+    >
+       Register Form
+    </div>
+    <hr />
+    <div>
+      <RegisterForm />
+    </div>
+  </div>
+</div>
+`;

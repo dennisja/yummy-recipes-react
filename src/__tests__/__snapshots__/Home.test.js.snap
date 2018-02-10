@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Home component renders properly 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col m6 hide-on-small-only"
+  >
+    This is the demo
+  </div>
+  <div
+    className="col m6 s10 offset-s1"
+  >
+    <FormCard
+      form={
+        <LoginForm
+          onLoginSubmit={[Function]}
+        />
+      }
+      iconClass={null}
+      title="Login"
+    />
+    <FormCard
+      form={<RegisterForm />}
+      iconClass={null}
+      title="Register"
+    />
+  </div>
+</div>
+`;
