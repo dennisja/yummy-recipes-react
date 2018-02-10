@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import Notifications from 'react-notify-toast';

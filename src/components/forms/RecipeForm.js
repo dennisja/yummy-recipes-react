@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import {notify} from 'react-notify-toast';
 
 import CategoryRequest from '../../helpers/Categories';
 import RecipesRequest from '../../helpers/Recipes';

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import AddCategoryForm from '../forms/CategoryForm';
 import FormCard from '../forms/FormCard';
 import SideBar from '../SideBar';

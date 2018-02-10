@@ -3,7 +3,7 @@ import $ from 'jquery';
 import TimeAgo from 'react-timeago';
 
 import RecipesRequest from '../../helpers/Recipes';
-import Preloader, {YummyNotifier, displayError} from '../Utilities';
+import Preloader, { displayError} from '../Utilities';
 import RecipesList from './RecipeList';
 import SideBar from '../SideBar';
 
