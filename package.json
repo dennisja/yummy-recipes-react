@@ -33,5 +33,16 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.6.0",
     "sinon": "^4.2.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/src/registerServiceWorker.js",
+      "!**/src/index.js",
+      "!**.eslintrc.js",
+      "!**/coverage/**"
+    ]
   }
 }
