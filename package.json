@@ -41,7 +41,7 @@
       "!**/vendor/**",
       "!**/src/registerServiceWorker.js",
       "!**/src/index.js",
-      "!**.eslintrc.js",
+      "!**/*.eslintrc.js",
       "!**/coverage/**"
     ]
   }
