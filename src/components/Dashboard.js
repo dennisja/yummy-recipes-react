@@ -139,6 +139,7 @@ class Dashboard extends Component {
     }
 
     getSearchResults(searchData){
+        // gets search results
         searchData["per_page"] = 5;
         SearchRequests.search(searchData)
         .then(response=>{
@@ -152,6 +153,7 @@ class Dashboard extends Component {
     }
 
     handleSearchInputFocus = (event)=>{
+        // handles focus on the search input field
         this.setState({
             displaySideBar: false,
             displayRecipe: false,
@@ -159,12 +161,14 @@ class Dashboard extends Component {
     }
 
     handleSearchInputBlur = event=>{
+        // hanldes blur on the input seach field
         this.setState({
             displaySideBar: true,
         })
     }
 
     handleSearch = data=>{
+        // handles submission of search
         if(data.q.length === 0){
             notify.show("Search term is empty", "warning", 4000)
         }else{
@@ -238,10 +242,12 @@ class Dashboard extends Component {
     }
 
     handleSearchCardMouseLeave = (event)=>{
+        // unhide side bar
         this.handleSearchInputBlur(event);
     }
 
     handleSearchCardMouseEnter = (event)=>{
+        // hide the side bar
         this.handleSearchInputFocus(event);
     }
 

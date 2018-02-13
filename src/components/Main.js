@@ -21,6 +21,7 @@ export const FileNotFound = () => (
   <YummyNotifier message="File Not found. Check the url and try again" type="info" />
 );
 
+// route to be only accessed when a user is logged in
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { loggedIn, userData } = rest;
 

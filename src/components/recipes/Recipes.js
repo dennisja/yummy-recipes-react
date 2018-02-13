@@ -6,6 +6,7 @@ import RecipesRequest from '../../helpers/Recipes';
 import Preloader, { displayError} from '../Utilities';
 import RecipesList from './RecipeList';
 import SideBar from '../SideBar';
+import { error } from 'util';
 
 export const RecipeModel = props => {
     const {name, category, steps, ingredients, created, edited} = props.recipe;
@@ -62,6 +63,7 @@ class Recipes extends Component {
     }
 
     viewRecipe = (event, id) => {
+        // gets recipe details of the recipe to view
         event.preventDefault();
         const{ recipes } = this.state;
 
@@ -78,6 +80,7 @@ class Recipes extends Component {
     }
 
     deleteRecipe = (event, id) => {
+        // deletes a recipe
         event.preventDefault();
         RecipesRequest
             .deleteRecipe(id)
@@ -93,6 +96,7 @@ class Recipes extends Component {
     }
 
     fetchRecipes() {
+        // gets all recipes
         RecipesRequest
             .fetchRecipes()
             .then(response => {
@@ -106,10 +110,12 @@ class Recipes extends Component {
     }
 
     componentDidMount() {
+        // fetch all recipes when a component is mounted
         this.fetchRecipes();
     }
 
     componentDidUpdate(){
+        // activate model if a recipe is to be shown
         if(this.state.displayRecipe){
             $('.modal').modal();
             $('#recipeModal').modal('open')
@@ -122,13 +128,17 @@ class Recipes extends Component {
         let componentToRender = null;
 
         if (loadingRecipes) {
+            // display loader if loading recipes
             componentToRender = (<Preloader message="Fetching Recipes......"/>)
         } else if (errorOccured) {
-            componentToRender = "Errors occures"
+            // display this message if an error occured
+            componentToRender = "Error occured"
         } else {
             if (recipes.length <= 0) {
+                // diplay this message if user has no errors
                 componentToRender = <div className="card-panel center-align">No recipes yet</div>
             } else {
+                // display list of user recipes
                 componentToRender = <RecipesList
                     recipes={recipes}
                     deleteRecipe={this.deleteRecipe}
@@ -146,7 +156,9 @@ class Recipes extends Component {
                         <div className="card-title">Recipes</div>
                     </div>
                     {componentToRender}
-                    {displayRecipe
+                    {
+                        // display modal if user chooses to view recipe details
+                        displayRecipe
                         ?<RecipeModel recipe={recipeDetails} />
                         : null
                     }

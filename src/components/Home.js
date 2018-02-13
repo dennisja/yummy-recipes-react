@@ -6,8 +6,6 @@ import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
 import FormCard from './forms/FormCard';
 
-// TODO: Come back and implement redirecting to referer i.e. if you login a user,
-// redirect him or her to the page he wanted to visit other than redirecting him to home always
 
 const Home = (props) => {
     const { loginUser, loggedIn } = props;

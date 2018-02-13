@@ -51,7 +51,7 @@ class EditRecipeForm extends Component {
                     loading: false
                 })
 
-                //initialize materialize select and overcome the select pain
+                // initialize materialize select and overcome the select pain
                 const el = ReactDOM.findDOMNode(this.refs.cat);
                 $('select').material_select();
                 $(el).on('change', this.handleInputChange)
