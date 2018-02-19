@@ -283,21 +283,18 @@ class Dashboard extends Component {
                                 onMouseEnter={this.handleSearchCardMouseEnter}/>}
                     title="Search for users, recipes and categories"/>
                 {
-                    results?
-                    <div>
+                    results &&
+                    (<div>
                     <SearchResults 
                         {...results}
                         deleteCategory={this.deleteCategory}
                         deleteRecipe={this.deleteRecipe}
                         viewRecipe={this.viewRecipe} />
                     <Pages totalPages={results.total_pages} activePage={page} handlePageClick={this.handlePageClick} />
-                    </div>
-                    : null
+                    </div>)
                 }
                 {
-                    displayRecipe?
-                    <RecipeModel recipe={selectedRecipe} />
-                    :null
+                    displayRecipe && (<RecipeModel recipe={selectedRecipe} />)
                 }
             </div>
         </div>
