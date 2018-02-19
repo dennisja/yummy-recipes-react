@@ -53,6 +53,11 @@ class AddCategoryForm extends Component {
             CategoryRequest.addCategory(this.state)
             .then(response=>{
                 notify.show(response.data.message,'success',4000);
+
+                if(this.props.location.state){
+                    this.props.history.push(this.props.location.state.from.pathname);
+                    return;
+                }
                 this.props.history.push('/categories')
             })
             .catch(error=>{

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import {notify} from 'react-notify-toast';
+import {Redirect} from 'react-router-dom';
 
 import CategoryRequest from '../../helpers/Categories';
 import RecipesRequest from '../../helpers/Recipes';
@@ -26,6 +27,7 @@ class AddRecipeForm extends Component {
         categories: [
         ],
         loading: true,
+        redirectToCreateCategory: false,
     }
 
     state = AddRecipeForm.initialState;
@@ -46,6 +48,10 @@ class AddRecipeForm extends Component {
         })
         .catch(error=>{
             displayError(error);
+            if(error.response.status === 404){
+                // this.props.history.push('/add-category');
+                this.setState({ redirectToCreateCategory: true})
+            }
         })
     }
 
@@ -76,15 +82,22 @@ class AddRecipeForm extends Component {
     }
 
     handleInputChange = (event) => {
-        const target = event.target;
+        const {name, value}= event.target;
         this.setState({
-            [target.name]:target.value
+            [name]:value
         })
     }
 
     render() {
-        const {name, steps, ingredients, category, categories, loading} = this.state;
+        const {name, steps, ingredients, category, categories, loading, redirectToCreateCategory} = this.state;
 
+        // redirect user to add category form if no categories exist
+        if(redirectToCreateCategory){
+            return <Redirect 
+                        to={{pathname:'/add-category', state: {from: this.props.location}}} />
+        }
+
+        // display loader if still loading categories
         if(loading){
             return(
                 <PreLoader message="Please wait....." />
