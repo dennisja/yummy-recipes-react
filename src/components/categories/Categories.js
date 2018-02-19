@@ -76,9 +76,12 @@ export class CategoryList extends Component {
             })
             .catch(error => {
                 if(error.response){
-                    const { data } = error.response;
+                    const { data, status } = error.response;
                     //send data and error to a higher order method to signal occurance of an error 
                     //and that no recipe is created yet
+                    if(status === 404){
+                        this.setState({ categories: []})
+                    }
                     this.props.handleFetchError(data.errors[0])
                 }else if (error.request){
                     window.Materialize.toast("Request Can't be made", 5000);
