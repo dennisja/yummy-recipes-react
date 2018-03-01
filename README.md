@@ -7,7 +7,6 @@ This is the yummy recipes react implementation. It consumes the yummy-recipes-ap
 
 ## Installation and Running
 ### Requirements
-- You first need to have the yummy-recipe-api installed. See installation details [here](https://github.com/dennisja/yummy-recipes-api) 
 - NodeJs 
 - A package manager e.g. yarn or npm
 
