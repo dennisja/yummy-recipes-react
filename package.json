@@ -8,6 +8,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
     "expect": "^21.2.1",
+    "gh-pages": "^1.2.0",
     "jquery": "^3.2.1",
     "materialize-css": "^0.100.2",
     "mocha": "^4.0.1",
@@ -24,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "yarn build"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
@@ -34,6 +37,7 @@
     "eslint-plugin-react": "^7.6.0",
     "sinon": "^4.2.2"
   },
+  "homepage": "https://dennisja.github.io/yummy-recipes-react",
   "jest": {
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
